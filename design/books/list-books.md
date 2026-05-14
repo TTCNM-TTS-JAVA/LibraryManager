@@ -36,16 +36,16 @@ Gồm khu vực lọc và bảng danh sách sách.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Từ khóa | Textbox | Tìm theo mã sách/tên sách |
-| 2 | Loại sách | Dropdown chọn một | Lọc theo loại sách |
-| 3 | Tác giả | Dropdown chọn một | Lọc theo tác giả |
-| 4 | Nhà xuất bản | Dropdown chọn một | Lọc theo nhà xuất bản |
-| 5 | Trạng thái | Dropdown chọn một | Đang dùng/Ngừng dùng |
-| 6 | Tìm kiếm | Button | Lọc dữ liệu |
-| 7 | Làm mới | Button | Xóa điều kiện tìm |
-| 8 | Bảng danh sách | Grid | Hiển thị: Mã sách, Tên sách, Loại sách, Tác giả, NXB, Số lượng tổng, Số lượng khả dụng, Trạng thái |
-| 9 | Chỉnh sửa | Action tại dòng | Mở màn hình cập nhật sách |
-| 10 | Ngừng sử dụng | Action tại dòng | Mở xác nhận ngừng sử dụng |
+| 1 | keyword | Textbox | Tìm theo mã sách/tên sách |
+| 2 | categoryId | Dropdown chọn một | Lọc theo loại sách |
+| 3 | authorId | Dropdown chọn một | Lọc theo tác giả |
+| 4 | publisherId | Dropdown chọn một | Lọc theo nhà xuất bản |
+| 5 | status | Dropdown chọn một | Đang dùng/Ngừng dùng |
+| 6 | searchButton | Button | Lọc dữ liệu |
+| 7 | resetButton | Button | Xóa điều kiện tìm |
+| 8 | resultsTable | Grid | Hiển thị: Mã sách, Tên sách, Loại sách, Tác giả, NXB, Số lượng tổng, Số lượng khả dụng, Trạng thái |
+| 9 | editAction | Action tại dòng | Mở màn hình cập nhật sách |
+| 10 | deactivateAction | Action tại dòng | Mở xác nhận ngừng sử dụng |
 
 ## Nguồn dữ liệu cho bộ lọc liên quan
 1. Loại sách: lấy từ danh mục Loại sách.

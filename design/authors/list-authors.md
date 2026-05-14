@@ -36,10 +36,10 @@ Gồm bộ lọc, bảng kết quả và thao tác tại dòng.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Từ khóa | Textbox | Tìm theo tên hoặc bút danh |
-| 2 | Trạng thái | Dropdown chọn một | Đang dùng/Ngừng dùng |
-| 3 | Tìm kiếm | Button | Lọc dữ liệu theo điều kiện |
-| 4 | Làm mới | Button | Xóa điều kiện lọc |
-| 5 | Bảng danh sách | Grid | Hiển thị: Tên đầy đủ, Bút danh, Quốc gia, Số đầu sách, Trạng thái |
-| 6 | Chỉnh sửa | Action tại dòng | Mở màn hình cập nhật tác giả |
-| 7 | Ngừng sử dụng | Action tại dòng | Mở hộp xác nhận ngừng sử dụng |
+| 1 | keyword | Textbox | Tìm theo tên hoặc bút danh |
+| 2 | status | Dropdown chọn một | Đang dùng/Ngừng dùng |
+| 3 | searchButton | Button | Lọc dữ liệu theo điều kiện |
+| 4 | resetButton | Button | Xóa điều kiện lọc |
+| 5 | resultsTable | Grid | Hiển thị: Tên đầy đủ, Bút danh, Quốc gia, Số đầu sách, Trạng thái |
+| 6 | editAction | Action tại dòng | Mở màn hình cập nhật tác giả |
+| 7 | deactivateAction | Action tại dòng | Mở hộp xác nhận ngừng sử dụng |

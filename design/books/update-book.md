@@ -39,17 +39,17 @@ Biểu mẫu chỉnh sửa giống biểu mẫu tạo mới.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Mã sách | Textbox | Bắt buộc; không trùng |
-| 2 | Tên sách | Textbox | Bắt buộc; tối đa 200 ký tự |
-| 3 | Loại sách | Dropdown chọn một | Bắt buộc; chọn từ Loại sách đang dùng |
-| 4 | Tác giả | Dropdown chọn nhiều | Bắt buộc; ít nhất một tác giả |
-| 5 | Nhà xuất bản | Dropdown chọn một | Bắt buộc; chọn từ Nhà xuất bản đang dùng |
-| 6 | Năm xuất bản | Textbox số | Không bắt buộc; 1900 đến năm hiện tại |
-| 7 | Số lượng tổng | Textbox số | Bắt buộc; số nguyên dương và không thấp hơn số đang mượn |
-| 8 | Vị trí kệ | Textbox | Không bắt buộc |
-| 9 | Trạng thái | Dropdown chọn một | Đang dùng/Ngừng dùng |
-| 10 | Lưu | Button | Lưu thay đổi sau kiểm tra |
-| 11 | Hủy | Button | Thoát không lưu |
+| 1 | bookCode | Textbox | Bắt buộc; không trùng |
+| 2 | bookTitle | Textbox | Bắt buộc; tối đa 200 ký tự |
+| 3 | categoryId | Dropdown chọn một | Bắt buộc; chọn từ Loại sách đang dùng |
+| 4 | authorIds | Dropdown chọn nhiều | Bắt buộc; ít nhất một tác giả |
+| 5 | publisherId | Dropdown chọn một | Bắt buộc; chọn từ Nhà xuất bản đang dùng |
+| 6 | publishedYear | Textbox số | Không bắt buộc; 1900 đến năm hiện tại |
+| 7 | totalQuantity | Textbox số | Bắt buộc; số nguyên dương và không thấp hơn số đang mượn |
+| 8 | shelfLocation | Textbox | Không bắt buộc |
+| 9 | status | Dropdown chọn một | Đang dùng/Ngừng dùng |
+| 10 | saveButton | Button | Lưu thay đổi sau kiểm tra |
+| 11 | cancelButton | Button | Thoát không lưu |
 
 ## Nguồn dữ liệu cho các trường liên quan
 1. Loại sách: lấy từ danh mục Loại sách đang dùng.

@@ -39,12 +39,12 @@ Biểu mẫu cập nhật độc giả.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Mã độc giả | Textbox | Bắt buộc; không trùng |
-| 2 | Họ và tên | Textbox | Bắt buộc; tối đa 120 ký tự |
+| 1 | memberCode | Textbox | Bắt buộc; không trùng |
+| 2 | fullName | Textbox | Bắt buộc; tối đa 120 ký tự |
 | 3 | Email | Textbox | Không bắt buộc; đúng định dạng email |
-| 4 | Số điện thoại | Textbox | Không bắt buộc; tối đa 20 ký tự |
-| 5 | Ngày sinh | Date picker | Không bắt buộc |
-| 6 | Địa chỉ | Textarea | Không bắt buộc; tối đa 500 ký tự |
-| 7 | Trạng thái | Dropdown chọn một | Đang hoạt động/Ngừng hoạt động |
-| 8 | Lưu | Button | Lưu thay đổi |
-| 9 | Hủy | Button | Thoát không lưu |
+| 4 | phoneNumber | Textbox | Không bắt buộc; tối đa 20 ký tự |
+| 5 | dateOfBirth | Date picker | Không bắt buộc |
+| 6 | address | Textarea | Không bắt buộc; tối đa 500 ký tự |
+| 7 | status | Dropdown chọn một | Đang hoạt động/Ngừng hoạt động |
+| 8 | saveButton | Button | Lưu thay đổi |
+| 9 | cancelButton | Button | Thoát không lưu |

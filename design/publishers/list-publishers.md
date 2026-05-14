@@ -36,10 +36,10 @@ Bộ lọc và bảng kết quả danh sách nhà xuất bản.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Từ khóa | Textbox | Tìm theo tên nhà xuất bản |
-| 2 | Trạng thái | Dropdown chọn một | Đang dùng/Ngừng dùng |
-| 3 | Tìm kiếm | Button | Lọc dữ liệu |
-| 4 | Làm mới | Button | Xóa điều kiện tìm |
-| 5 | Bảng danh sách | Grid | Hiển thị: Tên NXB, Email, Số điện thoại, Số đầu sách, Trạng thái |
-| 6 | Chỉnh sửa | Action tại dòng | Mở màn hình cập nhật |
-| 7 | Ngừng sử dụng | Action tại dòng | Mở xác nhận ngừng sử dụng |
+| 1 | keyword | Textbox | Tìm theo tên nhà xuất bản |
+| 2 | status | Dropdown chọn một | Đang dùng/Ngừng dùng |
+| 3 | searchButton | Button | Lọc dữ liệu |
+| 4 | resetButton | Button | Xóa điều kiện tìm |
+| 5 | resultsTable | Grid | Hiển thị: Tên NXB, Email, Số điện thoại, Số đầu sách, Trạng thái |
+| 6 | editAction | Action tại dòng | Mở màn hình cập nhật |
+| 7 | deactivateAction | Action tại dòng | Mở xác nhận ngừng sử dụng |

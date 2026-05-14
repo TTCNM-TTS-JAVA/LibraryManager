@@ -36,15 +36,15 @@ Gồm bộ lọc và bảng danh sách phiếu mượn.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Mã hoặc tên độc giả | Textbox | Tìm nhanh theo thông tin độc giả |
-| 2 | Trạng thái phiếu | Dropdown chọn một | Đang mượn/Đã trả/Quá hạn |
-| 3 | Từ ngày | Date picker | Lọc từ ngày mượn |
-| 4 | Đến ngày | Date picker | Lọc đến ngày mượn |
-| 5 | Tìm kiếm | Button | Lọc danh sách |
-| 6 | Làm mới | Button | Xóa điều kiện lọc |
-| 7 | Bảng danh sách | Grid | Hiển thị: Mã phiếu, Độc giả, Ngày mượn, Hạn trả, Số đầu sách, Trạng thái |
-| 8 | Cập nhật | Action tại dòng | Mở màn hình cập nhật phiếu |
-| 9 | Hủy phiếu | Action tại dòng | Mở xác nhận hủy phiếu |
+| 1 | memberKeyword | Textbox | Tìm nhanh theo thông tin độc giả |
+| 2 | loanStatus | Dropdown chọn một | Đang mượn/Đã trả/Quá hạn |
+| 3 | fromDate | Date picker | Lọc từ ngày mượn |
+| 4 | toDate | Date picker | Lọc đến ngày mượn |
+| 5 | searchButton | Button | Lọc danh sách |
+| 6 | resetButton | Button | Xóa điều kiện lọc |
+| 7 | resultsTable | Grid | Hiển thị: Mã phiếu, Độc giả, Ngày mượn, Hạn trả, Số đầu sách, Trạng thái |
+| 8 | updateAction | Action tại dòng | Mở màn hình cập nhật phiếu |
+| 9 | cancelLoanAction | Action tại dòng | Mở xác nhận hủy phiếu |
 
 ## Nguồn dữ liệu cho bộ lọc liên quan
 1. Thông tin độc giả: đối chiếu từ danh mục Độc giả.

@@ -39,10 +39,10 @@ Biểu mẫu thông tin tác giả và nút thao tác.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Tên đầy đủ | Textbox | Bắt buộc; tối đa 120 ký tự |
-| 2 | Bút danh | Textbox | Không bắt buộc; tối đa 80 ký tự |
-| 3 | Quốc gia | Textbox | Không bắt buộc; tối đa 100 ký tự |
-| 4 | Mô tả ngắn | Textarea | Không bắt buộc; tối đa 500 ký tự |
-| 5 | Trạng thái | Dropdown chọn một | Mặc định Đang dùng |
-| 6 | Lưu | Button | Kiểm tra hợp lệ và lưu dữ liệu |
-| 7 | Hủy | Button | Đóng màn hình tạo mới |
+| 1 | fullName | Textbox | Bắt buộc; tối đa 120 ký tự |
+| 2 | penName | Textbox | Không bắt buộc; tối đa 80 ký tự |
+| 3 | country | Textbox | Không bắt buộc; tối đa 100 ký tự |
+| 4 | shortDescription | Textarea | Không bắt buộc; tối đa 500 ký tự |
+| 5 | status | Dropdown chọn một | Mặc định Đang dùng |
+| 6 | saveButton | Button | Kiểm tra hợp lệ và lưu dữ liệu |
+| 7 | cancelButton | Button | Đóng màn hình tạo mới |

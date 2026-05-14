@@ -38,6 +38,6 @@ Hộp xác nhận hủy phiếu mượn.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Lý do hủy phiếu | Textarea | Bắt buộc; tối đa 500 ký tự |
-| 2 | Đồng ý | Button | Xác nhận hủy phiếu |
-| 3 | Hủy | Button | Hủy thao tác |
+| 1 | cancellationReason | Textarea | Bắt buộc; tối đa 500 ký tự |
+| 2 | confirmButton | Button | Xác nhận hủy phiếu |
+| 3 | cancelButton | Button | Hủy thao tác |

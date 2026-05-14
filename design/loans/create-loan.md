@@ -43,20 +43,20 @@ Biểu mẫu đầu phiếu và bảng chi tiết sách mượn nhiều dòng.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Độc giả | Dropdown chọn một | Bắt buộc; lấy từ danh mục Độc giả đang hoạt động |
-| 2 | Ngày mượn | Date picker | Bắt buộc; mặc định ngày hiện tại |
-| 3 | Hạn trả | Date picker | Bắt buộc; không nhỏ hơn ngày mượn |
-| 4 | Danh sách sách mượn | Bảng nhiều dòng | Bắt buộc; gồm trường Sách và Số lượng mượn |
-| 5 | Ghi chú | Textarea | Không bắt buộc; tối đa 500 ký tự |
-| 6 | Trạng thái phiếu | Dropdown chọn một | Mặc định Đang mượn |
-| 7 | Lưu | Button | Kiểm tra hợp lệ và lưu |
-| 8 | Hủy | Button | Thoát không lưu |
+| 1 | memberId | Dropdown chọn một | Bắt buộc; lấy từ danh mục Độc giả đang hoạt động |
+| 2 | borrowDate | Date picker | Bắt buộc; mặc định ngày hiện tại |
+| 3 | dueDate | Date picker | Bắt buộc; không nhỏ hơn ngày mượn |
+| 4 | loanItems | Bảng nhiều dòng | Bắt buộc; gồm trường Sách và Số lượng mượn |
+| 5 | note | Textarea | Không bắt buộc; tối đa 500 ký tự |
+| 6 | loanStatus | Dropdown chọn một | Mặc định Đang mượn |
+| 7 | saveButton | Button | Kiểm tra hợp lệ và lưu |
+| 8 | cancelButton | Button | Thoát không lưu |
 
 ## Mô tả chi tiết từng dòng sách mượn
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Sách | Dropdown chọn một | Bắt buộc; chỉ hiển thị sách đang dùng còn khả dụng |
-| 2 | Số lượng mượn | Textbox số | Bắt buộc; số nguyên > 0; không vượt số khả dụng |
+| 1 | bookId | Dropdown chọn một | Bắt buộc; chỉ hiển thị sách đang dùng còn khả dụng |
+| 2 | quantity | Textbox số | Bắt buộc; số nguyên > 0; không vượt số khả dụng |
 
 ## Nguồn dữ liệu cho các trường liên quan
 1. Độc giả: lấy từ danh mục Độc giả đang hoạt động.

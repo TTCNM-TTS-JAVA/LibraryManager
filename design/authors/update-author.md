@@ -39,10 +39,10 @@ Biểu mẫu chỉnh sửa tương tự biểu mẫu tạo mới.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Tên đầy đủ | Textbox | Bắt buộc; tối đa 120 ký tự; không trùng |
-| 2 | Bút danh | Textbox | Không bắt buộc; tối đa 80 ký tự |
-| 3 | Quốc gia | Textbox | Không bắt buộc; tối đa 100 ký tự |
-| 4 | Mô tả ngắn | Textarea | Không bắt buộc; tối đa 500 ký tự |
-| 5 | Trạng thái | Dropdown chọn một | Đang dùng/Ngừng dùng |
-| 6 | Lưu | Button | Lưu thông tin sau kiểm tra |
-| 7 | Hủy | Button | Thoát không lưu |
+| 1 | fullName | Textbox | Bắt buộc; tối đa 120 ký tự; không trùng |
+| 2 | penName | Textbox | Không bắt buộc; tối đa 80 ký tự |
+| 3 | country | Textbox | Không bắt buộc; tối đa 100 ký tự |
+| 4 | shortDescription | Textarea | Không bắt buộc; tối đa 500 ký tự |
+| 5 | status | Dropdown chọn một | Đang dùng/Ngừng dùng |
+| 6 | saveButton | Button | Lưu thông tin sau kiểm tra |
+| 7 | cancelButton | Button | Thoát không lưu |

@@ -39,10 +39,10 @@ Biểu mẫu chỉnh sửa nhà xuất bản.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Tên nhà xuất bản | Textbox | Bắt buộc; tối đa 150 ký tự; không trùng |
-| 2 | Email liên hệ | Textbox | Không bắt buộc; đúng định dạng email |
-| 3 | Số điện thoại | Textbox | Không bắt buộc; tối đa 20 ký tự |
-| 4 | Địa chỉ | Textarea | Không bắt buộc; tối đa 500 ký tự |
-| 5 | Trạng thái | Dropdown chọn một | Đang dùng/Ngừng dùng |
-| 6 | Lưu | Button | Kiểm tra và lưu thay đổi |
-| 7 | Hủy | Button | Thoát không lưu |
+| 1 | publisherName | Textbox | Bắt buộc; tối đa 150 ký tự; không trùng |
+| 2 | contactEmail | Textbox | Không bắt buộc; đúng định dạng email |
+| 3 | phoneNumber | Textbox | Không bắt buộc; tối đa 20 ký tự |
+| 4 | address | Textarea | Không bắt buộc; tối đa 500 ký tự |
+| 5 | status | Dropdown chọn một | Đang dùng/Ngừng dùng |
+| 6 | saveButton | Button | Kiểm tra và lưu thay đổi |
+| 7 | cancelButton | Button | Thoát không lưu |

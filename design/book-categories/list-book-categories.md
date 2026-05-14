@@ -37,10 +37,10 @@ Gồm khu vực điều kiện tra cứu, bảng danh sách và các nút thao t
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Từ khóa | Textbox | Nhập tên loại sách cần tìm |
-| 2 | Trạng thái | Dropdown chọn một | Đang dùng/Ngừng dùng |
-| 3 | Tìm kiếm | Button | Thực hiện lọc dữ liệu |
-| 4 | Làm mới | Button | Xóa điều kiện lọc về mặc định |
-| 5 | Bảng danh sách | Grid | Hiển thị: Tên loại sách, Mô tả, Số sách hiện có, Trạng thái, Cập nhật gần nhất |
-| 6 | Chỉnh sửa | Action tại dòng | Mở màn hình cập nhật loại sách |
-| 7 | Ngừng sử dụng | Action tại dòng | Mở xác nhận ngừng sử dụng |
+| 1 | keyword | Textbox | Nhập tên loại sách cần tìm |
+| 2 | status | Dropdown chọn một | Đang dùng/Ngừng dùng |
+| 3 | searchButton | Button | Thực hiện lọc dữ liệu |
+| 4 | resetButton | Button | Xóa điều kiện lọc về mặc định |
+| 5 | resultsTable | Grid | Hiển thị: Tên loại sách, Mô tả, Số sách hiện có, Trạng thái, Cập nhật gần nhất |
+| 6 | editAction | Action tại dòng | Mở màn hình cập nhật loại sách |
+| 7 | deactivateAction | Action tại dòng | Mở xác nhận ngừng sử dụng |

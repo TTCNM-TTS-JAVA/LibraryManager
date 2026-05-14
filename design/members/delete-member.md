@@ -37,6 +37,6 @@ Hộp xác nhận ngừng sử dụng độc giả.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Lý do ngừng hoạt động | Textarea | Không bắt buộc; tối đa 500 ký tự |
-| 2 | Đồng ý | Button | Xác nhận ngừng sử dụng |
-| 3 | Hủy | Button | Hủy thao tác |
+| 1 | deactivationReason | Textarea | Không bắt buộc; tối đa 500 ký tự |
+| 2 | confirmButton | Button | Xác nhận ngừng sử dụng |
+| 3 | cancelButton | Button | Hủy thao tác |

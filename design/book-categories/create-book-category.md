@@ -41,8 +41,8 @@ Biểu mẫu nhập liệu gồm thông tin loại sách và các nút thao tác
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Tên loại sách | Textbox | Bắt buộc; tối đa 100 ký tự; nếu để trống hiển thị lỗi: "Tên loại sách là bắt buộc" |
-| 2 | Mô tả | Textarea | Không bắt buộc; tối đa 500 ký tự |
-| 3 | Trạng thái | Dropdown chọn một | Mặc định Đang dùng; gồm Đang dùng/Ngừng dùng |
-| 4 | Lưu | Button | Click để kiểm tra hợp lệ và ghi nhận dữ liệu |
-| 5 | Hủy | Button | Đóng màn hình tạo mới, không lưu dữ liệu |
+| 1 | categoryName | Textbox | Bắt buộc; tối đa 100 ký tự; nếu để trống hiển thị lỗi: "Tên loại sách là bắt buộc" |
+| 2 | description | Textarea | Không bắt buộc; tối đa 500 ký tự |
+| 3 | status | Dropdown chọn một | Mặc định Đang dùng; gồm Đang dùng/Ngừng dùng |
+| 4 | saveButton | Button | Click để kiểm tra hợp lệ và ghi nhận dữ liệu |
+| 5 | cancelButton | Button | Đóng màn hình tạo mới, không lưu dữ liệu |

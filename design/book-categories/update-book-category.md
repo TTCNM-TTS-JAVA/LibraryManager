@@ -39,8 +39,8 @@ Biểu mẫu tương tự tạo mới nhưng hiển thị dữ liệu đã có.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Tên loại sách | Textbox | Bắt buộc; tối đa 100 ký tự; không trùng với bản ghi khác |
-| 2 | Mô tả | Textarea | Không bắt buộc; tối đa 500 ký tự |
-| 3 | Trạng thái | Dropdown chọn một | Đang dùng/Ngừng dùng |
-| 4 | Lưu | Button | Kiểm tra và lưu thay đổi |
-| 5 | Hủy | Button | Thoát không lưu |
+| 1 | categoryName | Textbox | Bắt buộc; tối đa 100 ký tự; không trùng với bản ghi khác |
+| 2 | description | Textarea | Không bắt buộc; tối đa 500 ký tự |
+| 3 | status | Dropdown chọn một | Đang dùng/Ngừng dùng |
+| 4 | saveButton | Button | Kiểm tra và lưu thay đổi |
+| 5 | cancelButton | Button | Thoát không lưu |

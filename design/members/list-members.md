@@ -35,10 +35,10 @@ Bộ lọc tra cứu và bảng dữ liệu độc giả.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Từ khóa | Textbox | Tìm theo mã, họ tên hoặc email |
-| 2 | Trạng thái | Dropdown chọn một | Đang hoạt động/Ngừng hoạt động |
-| 3 | Tìm kiếm | Button | Lọc danh sách |
-| 4 | Làm mới | Button | Xóa điều kiện lọc |
-| 5 | Bảng danh sách | Grid | Hiển thị: Mã độc giả, Họ tên, Email, SĐT, Số phiếu đang mượn, Trạng thái |
-| 6 | Chỉnh sửa | Action tại dòng | Mở màn hình cập nhật độc giả |
-| 7 | Ngừng sử dụng | Action tại dòng | Mở xác nhận ngừng sử dụng |
+| 1 | keyword | Textbox | Tìm theo mã, họ tên hoặc email |
+| 2 | status | Dropdown chọn một | Đang hoạt động/Ngừng hoạt động |
+| 3 | searchButton | Button | Lọc danh sách |
+| 4 | resetButton | Button | Xóa điều kiện lọc |
+| 5 | resultsTable | Grid | Hiển thị: Mã độc giả, Họ tên, Email, SĐT, Số phiếu đang mượn, Trạng thái |
+| 6 | editAction | Action tại dòng | Mở màn hình cập nhật độc giả |
+| 7 | deactivateAction | Action tại dòng | Mở xác nhận ngừng sử dụng |

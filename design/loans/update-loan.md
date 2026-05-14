@@ -39,9 +39,9 @@ Biểu mẫu cập nhật trạng thái phiếu mượn.
 ## Mô tả chi tiết giao diện
 | STT | Field name | Loại control | Mô tả |
 |---|---|---|---|
-| 1 | Hạn trả mới | Date picker | Không bắt buộc; dùng khi gia hạn |
-| 2 | Ngày trả thực tế | Date picker | Không bắt buộc; dùng khi chốt trả |
-| 3 | Trạng thái phiếu | Dropdown chọn một | Bắt buộc; Đang mượn/Đã trả/Quá hạn |
-| 4 | Ghi chú xử lý | Textarea | Không bắt buộc; tối đa 500 ký tự |
-| 5 | Lưu | Button | Lưu thay đổi sau kiểm tra |
-| 6 | Hủy | Button | Thoát không lưu |
+| 1 | newDueDate | Date picker | Không bắt buộc; dùng khi gia hạn |
+| 2 | actualReturnDate | Date picker | Không bắt buộc; dùng khi chốt trả |
+| 3 | loanStatus | Dropdown chọn một | Bắt buộc; Đang mượn/Đã trả/Quá hạn |
+| 4 | processingNote | Textarea | Không bắt buộc; tối đa 500 ký tự |
+| 5 | saveButton | Button | Lưu thay đổi sau kiểm tra |
+| 6 | cancelButton | Button | Thoát không lưu |
