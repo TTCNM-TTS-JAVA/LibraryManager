@@ -1,11 +1,13 @@
 package org.library.manager.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.library.manager.exception.BadRequestException;
 import org.library.manager.exception.CustomException;
 import org.library.manager.exception.ErrorCode;
 import org.library.manager.model.ItemRequest;
 import org.library.manager.model.ItemResponse;
+import org.library.manager.model.request.ExampleRequest;
 import org.library.manager.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +31,8 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @GetMapping("/error")
-    public ResponseEntity<?> throwErrorExample() {
+    @PostMapping("/error")
+    public ResponseEntity<?> throwErrorExample(@RequestBody @Valid ExampleRequest exampleRequest) {
         throw new BadRequestException("message.with.error.code");
     }
 
