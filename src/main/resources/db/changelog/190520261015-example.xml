@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="190520261015-example" author="tuanh">
+        <comment>Ví dụ sử dụng liquibase, xem thêm trong file db/changelog/db.changelog-master.xml có include file này</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `example` (
+              `id` int(11) NOT NULL AUTO_INCREMENT,
+              `name` varchar(255) NOT NULL,
+              PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        </sql>
+    </changeSet>
+</databaseChangeLog>
