@@ -1,4 +1,4 @@
-package org.library.manager.enums;
+package org.library.manager.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
