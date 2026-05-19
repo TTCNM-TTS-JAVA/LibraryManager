@@ -6,12 +6,16 @@ import org.library.manager.model.response.ApiResponse;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 @ControllerAdvice
 @Slf4j
@@ -49,6 +53,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(httpStatusCode)
                 .body(apiResponse);
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ResponseEntity<ApiResponse<Map<String, String>>> handleBadRequestException(MethodArgumentNotValidException ex) {
+        Map<String, String> data = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error -> data.put(error.getField(), error.getDefaultMessage()));
+        ApiResponse<Map<String, String>> apiResponse = ApiResponse.<Map<String,String>>builder()
+                .message(getMessage("validation.error")).code(400).result(data).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
     }
 
     private String getMessage(String code, Object... args) {
