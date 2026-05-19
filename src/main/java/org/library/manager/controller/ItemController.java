@@ -1,6 +1,9 @@
 package org.library.manager.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.library.manager.exception.BadRequestException;
+import org.library.manager.exception.CustomException;
+import org.library.manager.exception.ErrorCode;
 import org.library.manager.model.ItemRequest;
 import org.library.manager.model.ItemResponse;
 import org.library.manager.service.ItemService;
@@ -26,6 +29,20 @@ public class ItemController {
 
     private final ItemService itemService;
 
+    @GetMapping("/error")
+    public ResponseEntity<?> throwErrorExample() {
+        throw new BadRequestException("message.with.error.code");
+    }
+
+    @GetMapping("/error-with-args")
+    public ResponseEntity<?> throwErrorWithArgsExample() {
+        throw new BadRequestException("message.with.args", "Arg1", "Arg2");
+    }
+
+    @GetMapping("/custom-error")
+    public ResponseEntity<?> throwCustomErrorExample() {
+        throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR);
+    }
     /** GET /api/items — lấy toàn bộ danh sách */
     @GetMapping
     public ResponseEntity<List<ItemResponse>> getAll() {
