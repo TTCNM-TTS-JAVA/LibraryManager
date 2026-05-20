@@ -47,10 +47,10 @@ public class AuthorController {
         return ResponseEntity.ok(authorService.filterStatus(status));
     }
 
-//    @GetMapping("/authorWithBook")
-//    public ResponseEntity<List<AuthorWithBook>> authorWithBook(){
-//        return ResponseEntity.ok(authorService.authorWithBook());
-//    }
+    @GetMapping("/authorWithBook")
+    public ResponseEntity<List<AuthorWithBook>> authorWithBook(){
+        return ResponseEntity.ok(authorService.authorWithBook());
+    }
 
     @PostMapping("/create")
     public ResponseEntity<AuthorResponse> createAuthor(@RequestBody @Valid CreateAuthorRequest request){
