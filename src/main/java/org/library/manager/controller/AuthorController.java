@@ -3,7 +3,6 @@ package org.library.manager.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.library.manager.model.AuthorDto;
-import org.library.manager.model.AuthorWithBook;
 import org.library.manager.model.request.CreateAuthorRequest;
 import org.library.manager.model.request.UpdateAuthorRequest;
 import org.library.manager.model.response.AuthorResponse;
@@ -21,19 +20,14 @@ public class AuthorController {
 
     private final AuthorService authorService;
 
-    @GetMapping("/allAuthor")
-    public ResponseEntity<List<AuthorResponse>> getAllAuthor(@RequestParam int size , @RequestParam int page, @RequestBody AuthorDto authorDto){
-        return ResponseEntity.ok(authorService.getAllAuthor(size,page, authorDto));
+    @GetMapping("/getAllAuthorWithPageable")
+    public ResponseEntity<List<AuthorResponse>> getAllAuthorWithPageable(@RequestParam int size , @RequestParam int page, @RequestBody AuthorDto authorDto){
+        return ResponseEntity.ok(authorService.getAllAuthorWithPageable(size,page, authorDto));
     }
 
     @GetMapping("/{authorId}")
     public ResponseEntity<AuthorResponse> getAuthorById(@PathVariable Long authorId){
         return ResponseEntity.ok(authorService.getAuthorById(authorId));
-    }
-
-    @GetMapping("/authorWithBook")
-    public ResponseEntity<List<AuthorWithBook>> authorWithBook(){
-        return ResponseEntity.ok(authorService.authorWithBook());
     }
 
     @PostMapping("/create")

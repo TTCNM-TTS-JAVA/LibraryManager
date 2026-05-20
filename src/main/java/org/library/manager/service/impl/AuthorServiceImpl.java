@@ -3,13 +3,11 @@ package org.library.manager.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.library.manager.entity.Author;
 import org.library.manager.enums.Status;
+import org.library.manager.exception.BadRequestException;
 import org.library.manager.exception.CustomException;
 import org.library.manager.exception.ErrorCode;
 import org.library.manager.model.AuthorDto;
-import org.library.manager.model.AuthorWithBook;
-import org.library.manager.model.ListBook;
 import org.library.manager.model.request.CreateAuthorRequest;
-import org.library.manager.model.request.FindByFullName;
 import org.library.manager.model.request.UpdateAuthorRequest;
 import org.library.manager.model.response.AuthorResponse;
 import org.library.manager.repository.AuthorRepository;
@@ -20,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,12 +26,13 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
 
     @Override
-    public List<AuthorResponse> getAllAuthor(int size, int page, AuthorDto authorDto) {
+    public List<AuthorResponse> getAllAuthorWithPageable(int size, int page, AuthorDto authorDto) {
         Pageable pageFormat = PageRequest.of(page -1,size);
         Page<Author> authors = authorRepository
                 .findAll(authorDto.getFullName(),
                         authorDto.getPenName(),
-                        authorDto.getStatus() == null ? null : authorDto.getStatus(), pageFormat);
+                        authorDto.getStatus(),
+                        pageFormat);
         return authors.stream()
                 .map(x -> AuthorResponse.builder()
                         .id(x.getId())
@@ -67,27 +65,10 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<AuthorWithBook> authorWithBook() {
-        List<AuthorWithBook> authors = authorRepository.findAuthorWithBook();
-        return authors.stream()
-                .map(x -> new AuthorWithBook(
-                        x.getFullname(),
-                        x.getPenName(),
-                        x.getBooks()
-                                .stream()
-                                .map(y-> new ListBook(
-                                        y.getNameBook()
-                                ))
-                                .toList()
-                ))
-                .toList();
-    }
-
-    @Override
     public AuthorResponse createAuthor(CreateAuthorRequest request) {
 
         if(authorRepository.existsByFullName(request.getFullName())){
-            throw new RuntimeException("Author is existsed");
+            throw new BadRequestException("Author is empty");
         }
 
                Author author = Author.builder()
@@ -113,12 +94,13 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorResponse updateAuthor(Long authorId, UpdateAuthorRequest request) {
 
-        if(authorRepository.existsByFullName(request.getFullName())){
-            throw new RuntimeException("fullName is empty");
-        }
-
         Author author = authorRepository.findById(authorId)
                 .orElseThrow(()-> new CustomException(ErrorCode.AUTHOR_NOT_FOUND));
+
+        if(authorRepository.existsByFullName(request.getFullName())
+                && request.getFullName().equals(author.getFullName())){
+            throw new RuntimeException("fullName is empty");
+        }
 
         author.setFullName(request.getFullName());
         author.setPenName(request.getPenName());

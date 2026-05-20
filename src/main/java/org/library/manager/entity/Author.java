@@ -8,7 +8,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.library.manager.enums.Status;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Table(name = "authors")
@@ -45,7 +44,4 @@ public class Author {
     @UpdateTimestamp
     @Column(name = "updated_at", insertable = false)
     LocalDate updateAt;
-
-    @ManyToMany
-    Set<Book> books;
 }
