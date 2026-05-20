@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface AuthorRepository extends JpaRepository<Author,Long> {
     boolean existsByFullName(String fullName);
 
-    @Query("SELECT a FROM Author a WHERE (:fullName IS NULL OR (a.fullName LIKE CONCAT('%',:fullName,'%'))) " +
-            "AND (:penName IS NULL OR (a.penName LIKE ('%' || :penName || '%')))" +
-            "AND (:status IS NULL OR a.status = 'ACTIVE' OR a.status = 'INACTIVE')")
-    Page<Author> findAll(String fullName, String penName, Status status, Pageable pageable);
+    @Query("SELECT a FROM Author a WHERE (:search IS NULL OR (a.fullName LIKE %:search%) " +
+            "OR (a.penName LIKE %:search%))" +
+            "AND (:status IS NULL OR :status = 'ACTIVE' OR :status = 'INACTIVE')")
+    Page<Author> findByFilter(String search, Status status, Pageable pageable);
 }

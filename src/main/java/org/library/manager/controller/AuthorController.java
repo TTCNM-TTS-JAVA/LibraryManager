@@ -20,9 +20,9 @@ public class AuthorController {
 
     private final AuthorService authorService;
 
-    @GetMapping("/getAllAuthorWithPageable")
-    public ResponseEntity<List<AuthorResponse>> getAllAuthorWithPageable(@RequestParam int size , @RequestParam int page, @RequestBody AuthorDto authorDto){
-        return ResponseEntity.ok(authorService.getAllAuthorWithPageable(size,page, authorDto));
+    @GetMapping("/filter")
+    public ResponseEntity<List<AuthorResponse>> filter(@RequestParam int size , @RequestParam int page, @RequestBody AuthorDto authorDto){
+        return ResponseEntity.ok(authorService.filter(size,page, authorDto));
     }
 
     @GetMapping("/{authorId}")
@@ -37,7 +37,7 @@ public class AuthorController {
     }
 
     @PutMapping("/{authorId}")
-    public ResponseEntity<AuthorResponse> UpdateAuthor(@PathVariable Long authorId, @RequestBody UpdateAuthorRequest request){
+    public ResponseEntity<AuthorResponse> UpdateAuthor(@PathVariable Long authorId, @RequestBody @Valid UpdateAuthorRequest request){
         return ResponseEntity.ok(authorService.updateAuthor(authorId,request));
     }
 

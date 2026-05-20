@@ -13,7 +13,6 @@ import org.library.manager.enums.Status;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuthorDto {
-    String fullName;
-    String penName;
+    String search;
     Status status;
 }

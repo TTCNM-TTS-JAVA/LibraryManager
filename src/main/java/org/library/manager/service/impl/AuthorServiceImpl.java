@@ -26,11 +26,10 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
 
     @Override
-    public List<AuthorResponse> getAllAuthorWithPageable(int size, int page, AuthorDto authorDto) {
+    public List<AuthorResponse> filter(int size, int page, AuthorDto authorDto) {
         Pageable pageFormat = PageRequest.of(page -1,size);
         Page<Author> authors = authorRepository
-                .findAll(authorDto.getFullName(),
-                        authorDto.getPenName(),
+                .findByFilter(authorDto.getSearch(),
                         authorDto.getStatus(),
                         pageFormat);
         return authors.stream()

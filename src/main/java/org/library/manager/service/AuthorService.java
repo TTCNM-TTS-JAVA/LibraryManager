@@ -8,7 +8,7 @@ import org.library.manager.model.response.AuthorResponse;
 import java.util.List;
 
 public interface AuthorService {
-    List<AuthorResponse> getAllAuthorWithPageable(int size, int page, AuthorDto authorDto);
+    List<AuthorResponse> filter(int size, int page, AuthorDto authorDto);
     AuthorResponse getAuthorById(Long authorId);
     AuthorResponse createAuthor(CreateAuthorRequest request);
     AuthorResponse updateAuthor(Long authorId, UpdateAuthorRequest request);
