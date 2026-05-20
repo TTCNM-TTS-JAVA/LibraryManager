@@ -2,10 +2,9 @@ package org.library.manager.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.library.manager.enums.Status;
+import org.library.manager.model.AuthorDto;
 import org.library.manager.model.AuthorWithBook;
 import org.library.manager.model.request.CreateAuthorRequest;
-import org.library.manager.model.request.FindByFullName;
 import org.library.manager.model.request.UpdateAuthorRequest;
 import org.library.manager.model.response.AuthorResponse;
 import org.library.manager.service.AuthorService;
@@ -23,28 +22,13 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @GetMapping("/allAuthor")
-    public ResponseEntity<List<AuthorResponse>> getAllAuthor(){
-        return ResponseEntity.ok(authorService.getAllAuthor());
+    public ResponseEntity<List<AuthorResponse>> getAllAuthor(@RequestParam int size , @RequestParam int page, @RequestBody AuthorDto authorDto){
+        return ResponseEntity.ok(authorService.getAllAuthor(size,page, authorDto));
     }
 
     @GetMapping("/{authorId}")
     public ResponseEntity<AuthorResponse> getAuthorById(@PathVariable Long authorId){
         return ResponseEntity.ok(authorService.getAuthorById(authorId));
-    }
-
-    @GetMapping("/fullName")
-    public ResponseEntity<AuthorResponse> getByFullName(@RequestBody FindByFullName fullName){
-        return ResponseEntity.ok(authorService.getAuthorByFullName(fullName));
-    }
-
-    @GetMapping("/penName")
-    public ResponseEntity<AuthorResponse> getAuthorByPenName(@RequestBody FindByFullName penName){
-        return ResponseEntity.ok(authorService.getAuthorByPenName(penName));
-    }
-
-    @GetMapping("/status")
-    public ResponseEntity<List<AuthorResponse>> filterStatus(@RequestBody FindByFullName status){
-        return ResponseEntity.ok(authorService.filterStatus(status));
     }
 
     @GetMapping("/authorWithBook")

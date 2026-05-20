@@ -5,6 +5,7 @@ import org.library.manager.entity.Author;
 import org.library.manager.enums.Status;
 import org.library.manager.exception.CustomException;
 import org.library.manager.exception.ErrorCode;
+import org.library.manager.model.AuthorDto;
 import org.library.manager.model.AuthorWithBook;
 import org.library.manager.model.ListBook;
 import org.library.manager.model.request.CreateAuthorRequest;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +29,12 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
 
     @Override
-    public List<AuthorResponse> getAllAuthor() {
-        Pageable pageFormat = PageRequest.of(1,5);
-        Page<Author> authors = authorRepository.findAll(pageFormat);
+    public List<AuthorResponse> getAllAuthor(int size, int page, AuthorDto authorDto) {
+        Pageable pageFormat = PageRequest.of(page -1,size);
+        Page<Author> authors = authorRepository
+                .findAll(authorDto.getFullName(),
+                        authorDto.getPenName(),
+                        authorDto.getStatus() == null ? null : authorDto.getStatus(), pageFormat);
         return authors.stream()
                 .map(x -> AuthorResponse.builder()
                         .id(x.getId())
@@ -62,58 +67,6 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorResponse getAuthorByFullName(FindByFullName fullName) {
-        Author author = authorRepository.findByFullName(fullName.getFullName())
-                .orElseThrow(()-> new CustomException(ErrorCode.AUTHOR_NOT_FOUND));
-
-        return AuthorResponse.builder()
-                .id(author.getId())
-                .fullName(author.getFullName())
-                .penName(author.getPenName())
-                .country(author.getPenName())
-                .shortDescription(author.getShortDescription())
-                .status(author.getStatus())
-                .createAt(author.getCreateAt())
-                .updateAt(author.getUpdateAt())
-                .build();
-    }
-
-    @Override
-    public AuthorResponse getAuthorByPenName(FindByFullName penName) {
-        Author author = authorRepository.findByPenName(penName.getPenName())
-                .orElseThrow(()-> new CustomException(ErrorCode.AUTHOR_NOT_FOUND));
-
-        return AuthorResponse.builder()
-                .id(author.getId())
-                .fullName(author.getFullName())
-                .penName(author.getPenName())
-                .country(author.getPenName())
-                .shortDescription(author.getShortDescription())
-                .status(author.getStatus())
-                .createAt(author.getCreateAt())
-                .updateAt(author.getUpdateAt())
-                .build();
-    }
-
-    @Override
-    public List<AuthorResponse> filterStatus(FindByFullName status) {
-        List<Author> authors = authorRepository.findByStatus(status.getStatus());
-
-        return authors.stream()
-                .map(x -> AuthorResponse.builder()
-                        .id(x.getId())
-                        .fullName(x.getFullName())
-                        .penName(x.getPenName())
-                        .country(x.getCountry())
-                        .shortDescription(x.getShortDescription())
-                        .status(x.getStatus())
-                        .createAt(x.getCreateAt())
-                        .updateAt(x.getUpdateAt())
-                        .build())
-                .toList();
-    }
-
-    @Override
     public List<AuthorWithBook> authorWithBook() {
         List<AuthorWithBook> authors = authorRepository.findAuthorWithBook();
         return authors.stream()
@@ -133,8 +86,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorResponse createAuthor(CreateAuthorRequest request) {
 
-        if(authorRepository.existsByFullName(request.getFullName())
-                || authorRepository.existsByPenName(request.getPenName())){
+        if(authorRepository.existsByFullName(request.getFullName())){
             throw new RuntimeException("Author is existsed");
         }
 
@@ -161,9 +113,8 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorResponse updateAuthor(Long authorId, UpdateAuthorRequest request) {
 
-        if(authorRepository.existsByFullName(request.getFullName())
-                || authorRepository.existsByPenName(request.getPenName())){
-            throw new RuntimeException("Author is existsed");
+        if(authorRepository.existsByFullName(request.getFullName())){
+            throw new RuntimeException("fullName is empty");
         }
 
         Author author = authorRepository.findById(authorId)
