@@ -15,7 +15,7 @@ import org.library.manager.enums.Status;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class UpdateAuthorRequest {
-    @NotBlank
+    @NotBlank(message = "Full name not null")
     @Size(max = 120)
     String fullName;
 
@@ -28,6 +28,5 @@ public class UpdateAuthorRequest {
     @Size(max = 500)
     String shortDescription;
 
-    @Enumerated(EnumType.STRING)
     Status status;
 }

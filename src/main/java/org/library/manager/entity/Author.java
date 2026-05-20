@@ -1,7 +1,6 @@
 package org.library.manager.entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.Timestamp;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
@@ -45,4 +44,7 @@ public class Author {
     @UpdateTimestamp
     @Column(name = "updated_at", insertable = false)
     LocalDate updateAt;
+
+    @ManyToMany
+    Set<Books> books;
 }

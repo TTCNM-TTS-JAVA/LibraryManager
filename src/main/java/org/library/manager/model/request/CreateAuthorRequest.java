@@ -1,7 +1,5 @@
 package org.library.manager.model.request;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -15,7 +13,7 @@ import org.library.manager.enums.Status;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class CreateAuthorRequest {
-    @NotBlank
+    @NotBlank(message = "Full name not null")
     @Size(max = 120)
     String fullName;
 
@@ -28,6 +26,5 @@ public class CreateAuthorRequest {
     @Size(max = 500)
     String shortDescription;
 
-    @Enumerated(EnumType.STRING)
     Status status;
 }
