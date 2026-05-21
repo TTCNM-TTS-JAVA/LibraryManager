@@ -67,7 +67,7 @@ public class AuthorServiceImpl implements AuthorService {
     public AuthorResponse createAuthor(CreateAuthorRequest request) {
 
         if(authorRepository.existsByFullName(request.getFullName())){
-            throw new BadRequestException("Author is empty");
+            throw new BadRequestException("author.already.exists");
         }
 
                Author author = Author.builder()
@@ -97,8 +97,8 @@ public class AuthorServiceImpl implements AuthorService {
                 .orElseThrow(()-> new CustomException(ErrorCode.AUTHOR_NOT_FOUND));
 
         if(authorRepository.existsByFullName(request.getFullName())
-                && request.getFullName().equals(author.getFullName())){
-            throw new RuntimeException("fullName is empty");
+                && !request.getFullName().equals(author.getFullName())){
+            throw new BadRequestException("author.already.exists");
         }
 
         author.setFullName(request.getFullName());

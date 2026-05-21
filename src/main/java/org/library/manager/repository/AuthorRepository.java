@@ -14,6 +14,6 @@ public interface AuthorRepository extends JpaRepository<Author,Long> {
 
     @Query("SELECT a FROM Author a WHERE (:search IS NULL OR (a.fullName LIKE %:search%) " +
             "OR (a.penName LIKE %:search%))" +
-            "AND (:status IS NULL OR :status = 'ACTIVE' OR :status = 'INACTIVE')")
+            "AND (:status IS NULL OR a.status = :status)")
     Page<Author> findByFilter(String search, Status status, Pageable pageable);
 }

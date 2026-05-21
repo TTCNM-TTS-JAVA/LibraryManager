@@ -20,7 +20,7 @@ public class AuthorController {
 
     private final AuthorService authorService;
 
-    @GetMapping("/filter")
+    @PostMapping("/filter")
     public ResponseEntity<List<AuthorResponse>> filter(@RequestParam int size , @RequestParam int page, @RequestBody AuthorDto authorDto){
         return ResponseEntity.ok(authorService.filter(size,page, authorDto));
     }
