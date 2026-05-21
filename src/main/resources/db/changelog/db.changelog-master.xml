@@ -5,4 +5,6 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
         <include file="classpath:db/changelog/190520261015-example.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/190520262412-book_categories.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/21052026-add-deactivation-column.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
