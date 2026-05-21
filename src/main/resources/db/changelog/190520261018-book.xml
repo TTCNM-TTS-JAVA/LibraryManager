@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="190520261018-book" author="Thang">
+        <sql>
+            CREATE TABLE IF NOT EXISTS `books` (
+            id bigint primary key auto_increment,
+            code varchar(20) not null,
+            name varchar(200) not null,
+            category_id bigint not null,
+            publisher_id bigint not null,
+            publish_year smallint,
+            total_quantity int not null,
+            available_quantity int not null,
+            shelf_location varchar(50),
+            status enum('ACTIVE', 'INACTIVE') not null default 'ACTIVE',
+            created_at datetime not null default current_timestamp,
+            updated_at datetime not null default current_timestamp on update current_timestamp,
+
+            foreign key (category_id) references book_categories(id),
+            foreign key (publisher_id) references publishers(id)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>
