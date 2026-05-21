@@ -5,7 +5,7 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="190520262412-book_categories" author="cuongdo">
-        <comment>Ví dụ sử dụng liquibase, xem thêm trong file db/changelog/db.changelog-master.xml có include file này</comment>
+        <comment>Tạo bảng boo_categories theo yêu cầu thiết kế</comment>
         <sql>
             CREATE TABLE book_categories (
                 id bigint primary key auto_increment,

@@ -7,11 +7,11 @@ import org.library.manager.enums.Status;
 
 @Data
 public class BookCategoryRequest {
-    @NotBlank(message = "Tên loại sách là bắt buộc")
-    @Size(max = 100)
+    @NotBlank(message = "{name.not.null}")
+    @Size(max = 100, message = "{max.100.character}")
     private String name;
 
-    @Size(max = 500)
+    @Size(max = 500, message = "{max.500.character}")
     private String description;
 
     private Status status = Status.ACTIVE;
