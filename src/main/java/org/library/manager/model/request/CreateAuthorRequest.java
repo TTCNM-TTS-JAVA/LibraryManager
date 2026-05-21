@@ -13,7 +13,7 @@ import org.library.manager.enums.Status;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class CreateAuthorRequest {
-    @NotBlank(message = "full.name.not.null")
+    @NotBlank(message = "{full.name.not.null}")
     @Size(max = 120, message = "{max.120.character}")
     String fullName;
 
