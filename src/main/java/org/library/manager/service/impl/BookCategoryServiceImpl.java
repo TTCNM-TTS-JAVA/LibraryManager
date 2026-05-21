@@ -29,22 +29,9 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     @Override
     @Transactional(readOnly = true)
     public List<BookCategoryResponse> search(String keyword, Status status){
-        boolean hasKeyword = keyword != null && !keyword.isBlank();
-        boolean hasStatus = status != null;
-        List<BookCategory> data;
-        if(hasKeyword && hasStatus){
-            data = bookCategoryRepo.findByNameContainingIgnoreCaseAndStatusOrderByUpdatedAtDesc(keyword.trim(), status);
-        }
-        else if(hasKeyword){
-            data = bookCategoryRepo.findByNameContainingIgnoreCaseOrderByUpdatedAtDesc(keyword.trim());
-        } else if (hasStatus) {
-            data = bookCategoryRepo.findByStatusOrderByUpdatedAtDesc(status);
-        }
-        else {
-            data = bookCategoryRepo.findAllByOrderByUpdatedAtDesc();
-        }
+        String normaKeyword = (keyword != null && !keyword.isBlank()) ? keyword.trim() : null;
+        List<BookCategory> data = bookCategoryRepo.search(normaKeyword, status);
         return data.stream().map(this::toResponse).toList();
-
 
     }
     @Override
@@ -52,7 +39,7 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     public BookCategoryResponse create(BookCategoryRequest request){
         String name = request.getName().trim();
         if(bookCategoryRepo.existsByNameContainingIgnoreCaseAndStatus(name, Status.ACTIVE)){
-            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR);
+            throw new CustomException(ErrorCode.BOOK_CATEGORY_NAME_DUPLICATED);
         }
         BookCategory entity = BookCategory.builder()
                 .name(name)
@@ -68,8 +55,8 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     public BookCategoryResponse update(Long id, BookCategoryRequest request){
         BookCategory entity = findOrThrow(id);
         String name = request.getName().trim();
-        if(bookCategoryRepo.existsByNameContainingIgnoreCaseAndStatusAndIdNot(name, Status.ACTIVE, id)){
-            throw new CustomException((ErrorCode.INTERNAL_SERVER_ERROR));
+        if(bookCategoryRepo.existsByNameIgnoreCaseAndStatusAndIdNot(name, Status.ACTIVE, id)){
+            throw new CustomException(ErrorCode.BOOK_CATEGORY_NAME_DUPLICATED);
         }
         entity.setName(name);
         entity.setDescription(request.getDescription());
@@ -83,7 +70,7 @@ public class BookCategoryServiceImpl implements BookCategoryService {
         BookCategory entity = findOrThrow(id);
 
         if (entity.getStatus() == Status.INACTIVE) {
-            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR);
+            throw new CustomException(ErrorCode.BOOK_CATEGORY_ALREADY_INACTIVE);
         }
 
         // Khi có Book table, chặn ngừng dùng nếu còn sách đang ACTIVE thuộc loại này
@@ -96,7 +83,7 @@ public class BookCategoryServiceImpl implements BookCategoryService {
         return toResponse(bookCategoryRepo.save(entity));
     }
     private BookCategory findOrThrow(Long id){
-        return bookCategoryRepo.findById(id).orElseThrow(() -> new CustomException(ErrorCode.INTERNAL_SERVER_ERROR));
+        return bookCategoryRepo.findById(id).orElseThrow(() -> new CustomException(ErrorCode. BOOK_CATEGORY_NOT_FOUND));
 
     }
     private BookCategoryResponse toResponse(BookCategory entity){
