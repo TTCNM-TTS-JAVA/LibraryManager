@@ -21,6 +21,7 @@ public enum ErrorCode {
     BOOK_CATEGORY_ALREADY_INACTIVE(4092, "book-category.already.inactive", HttpStatus.CONFLICT);
 
 
+
     ErrorCode(int code, String message, HttpStatusCode httpStatusCode) {
         this.code = code;
         this.message = message;
