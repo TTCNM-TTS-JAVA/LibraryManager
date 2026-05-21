@@ -2,7 +2,7 @@ package org.library.manager.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.library.manager.enums.Status;
+import org.library.manager.model.request.BookCategoryFilterRequest;
 import org.library.manager.model.request.BookCategoryRequest;
 import org.library.manager.model.request.DeactivationReason;
 import org.library.manager.model.response.BookCategoryResponse;
@@ -19,11 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookCategoryController {
     private final BookCategoryService service;
-    @GetMapping
-    public ResponseEntity<List<BookCategoryResponse>> search(@RequestParam(required = false) String keyword,
-                                                             @RequestParam(required = false) Status status){
-        return ResponseEntity.ok(service.search(keyword, status));
-
+    @PostMapping("/filter")
+    public ResponseEntity<List<BookCategoryResponse>> filter(@RequestParam int size,
+                                                             @RequestParam int page,
+                                                             @RequestBody BookCategoryFilterRequest request){
+        return ResponseEntity.ok(service.filter(size, page, request));
     }
 
     @GetMapping("/{id}")

@@ -6,11 +6,15 @@ import org.library.manager.entity.BookCategory;
 import org.library.manager.enums.Status;
 import org.library.manager.exception.CustomException;
 import org.library.manager.exception.ErrorCode;
+import org.library.manager.model.request.BookCategoryFilterRequest;
 import org.library.manager.model.request.BookCategoryRequest;
 import org.library.manager.model.request.DeactivationReason;
 import org.library.manager.model.response.BookCategoryResponse;
 import org.library.manager.repository.BookCategoryRepository;
 import org.library.manager.service.BookCategoryService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,17 +32,19 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     }
     @Override
     @Transactional(readOnly = true)
-    public List<BookCategoryResponse> search(String keyword, Status status){
-        String normaKeyword = (keyword != null && !keyword.isBlank()) ? keyword.trim() : null;
-        List<BookCategory> data = bookCategoryRepo.search(normaKeyword, status);
-        return data.stream().map(this::toResponse).toList();
-
+    public List<BookCategoryResponse> filter(int size, int page, BookCategoryFilterRequest request){
+        String keyword = request.getKeyword();
+        String name = (keyword != null && !keyword.isBlank()) ? keyword.trim() : null;
+        Pageable pageable = PageRequest.of(page, size, Sort.by("updatedAt").descending());
+        return bookCategoryRepo.search(name, request.getStatus(), pageable)
+                .map(this::toResponse)
+                .getContent();
     }
     @Override
     @Transactional
     public BookCategoryResponse create(BookCategoryRequest request){
         String name = request.getName().trim();
-        if(bookCategoryRepo.existsByNameContainingIgnoreCaseAndStatus(name, Status.ACTIVE)){
+        if(bookCategoryRepo.existsByNameIgnoreCaseAndStatus(name, Status.ACTIVE)){
             throw new CustomException(ErrorCode.BOOK_CATEGORY_NAME_DUPLICATED);
         }
         BookCategory entity = BookCategory.builder()
