@@ -52,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberResponse getMemberById(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(()-> new CustomException(ErrorCode.MEMBER_NOT_EXISTSED));
+                .orElseThrow(()-> new CustomException(ErrorCode.MEMBER_NOT_EXISTED));
         return MemberResponse.builder()
                 .id(member.getId())
                 .memberCode(member.getMemberCode())
@@ -71,7 +71,7 @@ public class MemberServiceImpl implements MemberService {
     public MemberResponse createMember(CreateMemberRequest request) {
 
         if (memberRepository.existsByMemberCode(request.getMemberCode())){
-            throw new CustomException(ErrorCode.MEMBER_EXISTSED);
+            throw new CustomException(ErrorCode.MEMBER_EXISTED);
         }
 
         Member member = Member.builder()
@@ -104,11 +104,11 @@ public class MemberServiceImpl implements MemberService {
     public MemberResponse updateMember(Long memberId, UpdateMemberRequest request) {
 
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(()-> new CustomException(ErrorCode.MEMBER_NOT_EXISTSED));
+                .orElseThrow(()-> new CustomException(ErrorCode.MEMBER_NOT_EXISTED));
 
         if(memberRepository.existsByMemberCode(request.getMemberCode())
                 && !member.getMemberCode().equals(request.getMemberCode())){
-            throw new CustomException(ErrorCode.MEMBER_CODE_EXISTSED);
+            throw new CustomException(ErrorCode.MEMBER_CODE_EXISTED);
         }
 
         member.setMemberCode(request.getMemberCode());
@@ -138,7 +138,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void deleteMember(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(()-> new CustomException(ErrorCode.MEMBER_NOT_EXISTSED));
+                .orElseThrow(()-> new CustomException(ErrorCode.MEMBER_NOT_EXISTED));
 
         member.setStatus(Status.INACTIVE);
         memberRepository.save(member);

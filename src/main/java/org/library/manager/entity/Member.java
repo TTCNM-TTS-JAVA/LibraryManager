@@ -29,7 +29,7 @@ public class Member {
     @Column(name = "full_name",nullable = false,length = 120)
     String fullName;
 
-    @Email
+    @Column(name = "email")
     String email;
 
     @Column(name = "phone_number", length = 20)

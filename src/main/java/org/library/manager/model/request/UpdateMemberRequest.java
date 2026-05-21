@@ -25,13 +25,13 @@ public class UpdateMemberRequest {
     @Size(max = 120, message = "{max.120.character}")
     String fullName;
 
-    @Email(message = "{email.not.found}")
+    @Email(message = "{email.not.correct.format}")
     String email;
 
     @Size(max = 20, message = "{max.20.character}")
     String phoneNumber;
 
-    @Past(message = "{dob.not.found}")
+    @Past(message = "{dob.not.correct.format}")
     LocalDate dob;
 
     @Size(max = 500, message = "{max.500.character}")
