@@ -6,7 +6,10 @@ import org.springframework.http.HttpStatusCode;
 
 @Getter
 public enum ErrorCode {
-    INTERNAL_SERVER_ERROR(5000, "internal.server.error", HttpStatus.INTERNAL_SERVER_ERROR);
+    INTERNAL_SERVER_ERROR(5000, "internal.server.error", HttpStatus.INTERNAL_SERVER_ERROR),
+    AUTHOR_NOT_FOUND(5000, "author.not.found", HttpStatus.INTERNAL_SERVER_ERROR),
+    ;
+
 
     ErrorCode(int code, String message, HttpStatusCode httpStatusCode) {
         this.code = code;

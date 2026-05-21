@@ -5,4 +5,5 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
         <include file="classpath:db/changelog/190520261015-example.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/190520261016-author.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
