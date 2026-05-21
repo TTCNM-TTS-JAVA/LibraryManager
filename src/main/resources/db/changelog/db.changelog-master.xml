@@ -6,4 +6,5 @@
 
         <include file="classpath:db/changelog/190520261015-example.xml" relativeToChangelogFile="false"/>
         <include file="classpath:db/changelog/190520261016-author.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/190520261017-member.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

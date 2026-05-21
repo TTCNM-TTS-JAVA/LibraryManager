@@ -7,7 +7,11 @@ import org.springframework.http.HttpStatusCode;
 @Getter
 public enum ErrorCode {
     INTERNAL_SERVER_ERROR(5000, "internal.server.error", HttpStatus.INTERNAL_SERVER_ERROR),
-    AUTHOR_NOT_FOUND(5000, "author.not.found", HttpStatus.INTERNAL_SERVER_ERROR),
+    AUTHOR_NOT_FOUND(5001, "author.not.found", HttpStatus.INTERNAL_SERVER_ERROR),
+    MEMBER_NOT_FOUND(5002, "member.not.found", HttpStatus.INTERNAL_SERVER_ERROR),
+    MEMBER_EXISTSED(5003,"member.existsed",HttpStatus.FOUND),
+    MEMBER_CODE_EXISTSED(5005,"member.code.existsed",HttpStatus.FOUND),
+    MEMBER_NOT_EXISTSED(5004,"member.not.existsed",HttpStatus.NOT_FOUND)
     ;
 
 
