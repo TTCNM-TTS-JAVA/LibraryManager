@@ -12,14 +12,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class AuthorResponse {
-
+public class MemberResponse {
     Long id;
+    String memberCode;
     String fullName;
-    String penName;
-    String country;
-    String shortDescription;
+    String email;
+    String phoneNumber;
+    LocalDate dob;
+    String address;
     Status status;
-    LocalDate createAt;
-    LocalDate updateAt;
+    LocalDate createdAt;
+    LocalDate updatedAt;
 }
