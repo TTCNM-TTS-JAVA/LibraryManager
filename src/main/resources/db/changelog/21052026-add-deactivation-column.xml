@@ -5,6 +5,7 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="21052026-add-deactivation-column" author="cuongdo">
+        <comment>Thêm cột dactivation vào bảng để hiển thị lí do ngừng hoạt động của thể loại sách này</comment>
         <sql>
             ALTER TABLE book_categories
             ADD COLUMN deactivation varchar(500);
