@@ -55,14 +55,13 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     public BookCategoryResponse update(Long id, BookCategoryRequest request){
         BookCategory entity = findOrThrow(id);
         String name = request.getName().trim();
-        if(bookCategoryRepo.existsByNameIgnoreCaseAndStatusAndIdNot(name, Status.ACTIVE, id)){
+        if(bookCategoryRepo.existsByNameIgnoreCaseAndStatus(name, Status.ACTIVE) && !request.getName().equals(entity.getName())){
             throw new CustomException(ErrorCode.BOOK_CATEGORY_NAME_DUPLICATED);
         }
         entity.setName(name);
         entity.setDescription(request.getDescription());
 
         return toResponse(bookCategoryRepo.save(entity));
-
 
     }
     @Override
