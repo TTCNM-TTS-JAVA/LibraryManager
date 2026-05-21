@@ -12,8 +12,7 @@ import java.util.List;
 @Repository
 public interface BookCategoryRepository extends JpaRepository<BookCategory, Long> {
     boolean existsByNameContainingIgnoreCaseAndStatus(String name, Status status);
-
-    boolean existsByNameIgnoreCaseAndStatusAndIdNot(String name, Status status, Long id);
+    boolean existsByNameIgnoreCaseAndStatus(String name, Status status);
 
     @Query("SELECT bc FROM BookCategory bc "
             + "WHERE (:keyword IS NULL OR LOWER(bc.name) LIKE LOWER(CONCAT('%', :keyword, '%'))) "
