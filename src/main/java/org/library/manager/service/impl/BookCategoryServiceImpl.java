@@ -69,7 +69,6 @@ public class BookCategoryServiceImpl implements BookCategoryService {
 
         return toResponse(bookCategoryRepo.save(entity));
 
-
     }
     @Override
     public BookCategoryResponse deactivation(Long id, DeactivationReason reason){
