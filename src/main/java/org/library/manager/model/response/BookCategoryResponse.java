@@ -19,4 +19,6 @@ public class BookCategoryResponse {
 
     private LocalDateTime updatedAt;
 
+    private String deactivationReason;
+
 }

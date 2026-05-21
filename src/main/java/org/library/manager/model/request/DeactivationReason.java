@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class DeactivationReason {
     @Size(max = 500)
-    public String deactivation_Reason;
+    public String deactivationReason;
 }

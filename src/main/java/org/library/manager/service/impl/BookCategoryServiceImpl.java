@@ -91,7 +91,7 @@ public class BookCategoryServiceImpl implements BookCategoryService {
 
         entity.setStatus(Status.INACTIVE);
         if (reason != null) {
-            entity.setDeactivationReason(reason.getDeactivation_Reason());
+            entity.setDeactivationReason(reason.getDeactivationReason());
         }
         return toResponse(bookCategoryRepo.save(entity));
     }
@@ -106,6 +106,7 @@ public class BookCategoryServiceImpl implements BookCategoryService {
                 .status(entity.getStatus())
                 .updatedAt(entity.getUpdatedAt())
                 .BookCountByBookCate(0L)
+                .deactivationReason(entity.getDeactivationReason())
                 .build();
 
     }
