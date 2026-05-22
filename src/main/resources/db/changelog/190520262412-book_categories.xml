@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="190520262412-book_categories" author="cuongdo">
+        <comment>Tạo bảng boo_categories theo yêu cầu thiết kế</comment>
+        <sql>
+            CREATE TABLE book_categories (
+                id bigint primary key auto_increment,
+                name varchar(100) not null,
+                description varchar(500) ,
+                status enum('ACTIVE', 'INACTIVE') not null default 'ACTIVE',
+                created_at datetime not null default current_timestamp,
+                updated_at datetime not null default current_timestamp on update current_timestamp
+            )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
