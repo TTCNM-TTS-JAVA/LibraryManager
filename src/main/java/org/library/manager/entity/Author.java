@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.library.manager.enums.Status;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "authors")
@@ -44,4 +46,23 @@ public class Author {
     @UpdateTimestamp
     @Column(name = "updated_at", insertable = false)
     LocalDate updateAt;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(
+            name = "book-authors",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
+
+    private Set<Book> danhSachBook = new HashSet<>();
+
+    public void addBook(Book book){
+        this.danhSachBook.add(book);
+        book.getDanhSachAuthor().add(this);
+    }
+
+    public void removeBook(Book book){
+        this.danhSachBook.remove(book);
+        book.getDanhSachAuthor().remove(this);
+    }
 }

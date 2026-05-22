@@ -5,7 +5,7 @@ import org.library.manager.entity.Member;
 import org.library.manager.enums.Status;
 import org.library.manager.exception.CustomException;
 import org.library.manager.exception.ErrorCode;
-import org.library.manager.model.AuthorDto;
+import org.library.manager.model.dto.AuthorDto;
 import org.library.manager.model.request.CreateMemberRequest;
 import org.library.manager.model.request.UpdateMemberRequest;
 import org.library.manager.model.response.MemberResponse;

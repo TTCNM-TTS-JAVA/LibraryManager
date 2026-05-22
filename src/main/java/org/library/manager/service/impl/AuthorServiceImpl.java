@@ -6,7 +6,7 @@ import org.library.manager.enums.Status;
 import org.library.manager.exception.BadRequestException;
 import org.library.manager.exception.CustomException;
 import org.library.manager.exception.ErrorCode;
-import org.library.manager.model.AuthorDto;
+import org.library.manager.model.dto.AuthorDto;
 import org.library.manager.model.request.CreateAuthorRequest;
 import org.library.manager.model.request.UpdateAuthorRequest;
 import org.library.manager.model.response.AuthorResponse;
@@ -127,6 +127,7 @@ public class AuthorServiceImpl implements AuthorService {
         Author author = authorRepository.findById(authorId)
                 .orElseThrow(()-> new CustomException(ErrorCode.AUTHOR_NOT_FOUND));
         author.setStatus(Status.INACTIVE);
+
         authorRepository.save(author);
     }
 }

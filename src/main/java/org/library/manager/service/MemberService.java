@@ -1,6 +1,6 @@
 package org.library.manager.service;
 
-import org.library.manager.model.AuthorDto;
+import org.library.manager.model.dto.AuthorDto;
 import org.library.manager.model.request.CreateMemberRequest;
 import org.library.manager.model.request.UpdateMemberRequest;
 import org.library.manager.model.response.MemberResponse;

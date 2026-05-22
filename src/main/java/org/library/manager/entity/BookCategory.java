@@ -10,6 +10,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.library.manager.enums.Status;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "book_categories")
@@ -40,7 +42,26 @@ public class BookCategory {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-    //@OneToMany
+
     @Column(name = "deactivation", length = 500)
     private String deactivationReason;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(
+            name = "books-category",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
+
+    private Set<Book> danhSachBooks = new HashSet<>();
+
+    public void addBook(Book category){
+        this.danhSachBooks.add(category);
+        category.getDanhSachCategory().add(this);
+    }
+
+    public void removeBook(Book category){
+        this.danhSachBooks.remove(category);
+        category.getDanhSachCategory().remove(this);
+    }
 }

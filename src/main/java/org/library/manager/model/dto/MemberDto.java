@@ -1,4 +1,4 @@
-package org.library.manager.model;
+package org.library.manager.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -12,7 +12,7 @@ import org.library.manager.enums.Status;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AuthorDto {
+public class MemberDto {
     String search;
     Status status;
 }
