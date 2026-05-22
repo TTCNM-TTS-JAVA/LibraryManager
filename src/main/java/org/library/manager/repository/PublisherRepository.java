@@ -18,6 +18,8 @@ public interface PublisherRepository extends JpaRepository<Publisher, Long> {
 
     boolean existsByNameIgnoreCaseAndStatus(String name, PublisherStatus status);
 
+    boolean existsByNameIgnoreCaseAndStatusAndIdNot(String name, PublisherStatus status, Long id);
+
     @Query("SELECT p from Publisher p "
             + "WHERE (:keyword IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%' )))"
             + "AND (:status IS NULL OR p.status = :status)"

@@ -1,5 +1,6 @@
 package org.library.manager.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.library.manager.entity.Publisher;
 import org.library.manager.enums.PublisherStatus;
@@ -22,6 +23,7 @@ import java.util.List;
 public class PublisherServiceImpl implements PublisherService {
     private final PublisherRepository publisherRepo;
     @Override
+    @Transactional
     public PublisherResponse create(PublisherRequest request){
         String name = request.getName().trim();
         if(publisherRepo.existsByNameIgnoreCaseAndStatus(name, PublisherStatus.ACTIVE)){
@@ -39,6 +41,7 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
+    @Transactional
     public List<PublisherResponse> filter(int size, int page, PublisherFilterRequest request) {
         String keyword = request.getKeyword();
         String name = (keyword != null && !keyword.isBlank()) ? keyword.trim() : null;
@@ -49,10 +52,11 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
+    @Transactional
     public PublisherResponse update(Long id, PublisherRequest request) {
         Publisher entity = findOrThrow(id);
         String name = request.getName().trim();
-        if(publisherRepo.existsByNameIgnoreCaseAndStatus(name, PublisherStatus.ACTIVE)){
+        if(publisherRepo.existsByNameIgnoreCaseAndStatus(name, PublisherStatus.ACTIVE) && !request.getName().equals(entity.getName())){
             throw new CustomException(ErrorCode.PUBLISHER_NAME_DUPLICATED);
         }
         entity.setName(name);
