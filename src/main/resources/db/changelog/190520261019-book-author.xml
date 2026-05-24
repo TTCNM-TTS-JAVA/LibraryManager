@@ -6,7 +6,7 @@
 
     <changeSet id="190520261019-book-author" author="Thang">
         <sql>
-            CREATE TABLE IF NOT EXISTS `book-authors` (
+            CREATE TABLE IF NOT EXISTS `book_authors` (
             book_id bigint not null,
             author_id bigint not null,
 

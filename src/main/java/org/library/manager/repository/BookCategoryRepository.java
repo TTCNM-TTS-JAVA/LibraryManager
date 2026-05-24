@@ -9,9 +9,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Set;
+
 @Repository
 public interface BookCategoryRepository extends JpaRepository<BookCategory, Long> {
     boolean existsByNameIgnoreCaseAndStatus(String name, Status status);
+
+    @Query("SELECT bc.id FROM BookCategory bc")
+    Set<Long> findAllId();
 
     @Query("""
     SELECT bc FROM BookCategory bc

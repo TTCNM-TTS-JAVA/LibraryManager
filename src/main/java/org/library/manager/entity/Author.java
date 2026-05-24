@@ -20,49 +20,35 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class Author {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "full_name",nullable = false,length = 120)
+    @Column(name = "full_name", nullable = false, length = 120)
     String fullName;
 
-    @Column(name = "pen_name",length = 80)
+    @Column(name = "pen_name", length = 80)
     String penName;
 
-    @Column(length = 100)
+    @Column(name = "country", length = 100)
     String country;
 
     @Column(name = "short_description", length = 500)
     String shortDescription;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     Status status;
 
     @CreationTimestamp
-    @Column(name = "created_at",updatable = false)
-    LocalDate createAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    LocalDate createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at", insertable = false)
-    LocalDate updateAt;
+    @Column(name = "updated_at", nullable = false)
+    LocalDate updatedAt;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinTable(
-            name = "book-authors",
-            joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id")
-    )
-
-    private Set<Book> danhSachBook = new HashSet<>();
-
-    public void addBook(Book book){
-        this.danhSachBook.add(book);
-        book.getDanhSachAuthor().add(this);
-    }
-
-    public void removeBook(Book book){
-        this.danhSachBook.remove(book);
-        book.getDanhSachAuthor().remove(this);
-    }
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books = new HashSet<>();
 }

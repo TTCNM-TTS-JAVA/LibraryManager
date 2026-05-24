@@ -9,7 +9,7 @@
         <comment>Ví dụ sử dụng liquibase, xem thêm trong file db/changelog/db.changelog-master.xml có include file này</comment>
         <sql>
             ALTER TABLE book_categories
-            ADD COLUMN deactivation varchar(500);
+            ADD COLUMN ;
         </sql>
     </changeSet>
 

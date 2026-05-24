@@ -29,7 +29,7 @@ public class AuthorServiceImpl implements AuthorService {
     public List<AuthorResponse> filter(int size, int page, AuthorDto authorDto) {
         Pageable pageFormat = PageRequest.of(page -1,size);
         Page<Author> authors = authorRepository
-                .findByFilter(authorDto.getSearch(),
+                .findByFilter(authorDto.getSearch().trim(),
                         authorDto.getStatus(),
                         pageFormat);
         return authors.stream()
@@ -40,8 +40,8 @@ public class AuthorServiceImpl implements AuthorService {
                         .country(x.getCountry())
                         .shortDescription(x.getShortDescription())
                         .status(x.getStatus())
-                        .createAt(x.getCreateAt())
-                        .updateAt(x.getUpdateAt())
+                        .createAt(x.getCreatedAt())
+                        .updateAt(x.getUpdatedAt())
                         .build())
                 .toList();
     }
@@ -58,8 +58,8 @@ public class AuthorServiceImpl implements AuthorService {
                 .country(author.getCountry())
                 .shortDescription(author.getShortDescription())
                 .status(author.getStatus())
-                .createAt(author.getCreateAt())
-                .updateAt(author.getUpdateAt())
+                .createAt(author.getCreatedAt())
+                .updateAt(author.getUpdatedAt())
                 .build();
     }
 
@@ -85,8 +85,8 @@ public class AuthorServiceImpl implements AuthorService {
                 .country(author.getCountry())
                 .shortDescription(author.getShortDescription())
                 .status(author.getStatus())
-                .createAt(author.getCreateAt())
-                .updateAt(author.getUpdateAt())
+                .createAt(author.getCreatedAt())
+                .updateAt(author.getUpdatedAt())
                 .build();
     }
 
@@ -117,8 +117,8 @@ public class AuthorServiceImpl implements AuthorService {
                 .country(author.getCountry())
                 .shortDescription(author.getShortDescription())
                 .status(author.getStatus())
-                .createAt(author.getCreateAt())
-                .updateAt(author.getUpdateAt())
+                .createAt(author.getCreatedAt())
+                .updateAt(author.getUpdatedAt())
                 .build();
     }
 

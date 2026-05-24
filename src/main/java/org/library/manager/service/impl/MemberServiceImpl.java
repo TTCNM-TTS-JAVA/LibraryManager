@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
         Pageable pageFormat = PageRequest.of(page -1,size);
 
         Page<Member> members = memberRepository.findByFilterMember
-                        (authorDto.getSearch(),
+                        (authorDto.getSearch().trim(),
                         authorDto.getStatus(),
                         pageFormat);
 
@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberResponse createMember(CreateMemberRequest request) {
 
-        if (memberRepository.existsByMemberCode(request.getMemberCode())){
+        if (memberRepository.existsByMemberCode(request.getMemberCode().trim())){
             throw new CustomException(ErrorCode.MEMBER_EXISTED);
         }
 
@@ -106,8 +106,8 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(()-> new CustomException(ErrorCode.MEMBER_NOT_EXISTED));
 
-        if(memberRepository.existsByMemberCode(request.getMemberCode())
-                && !member.getMemberCode().equals(request.getMemberCode())){
+        if(memberRepository.existsByMemberCode(request.getMemberCode().trim())
+                && !member.getMemberCode().equals(request.getMemberCode().trim())){
             throw new CustomException(ErrorCode.MEMBER_CODE_EXISTED);
         }
 

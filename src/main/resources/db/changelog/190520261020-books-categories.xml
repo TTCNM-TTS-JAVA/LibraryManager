@@ -6,14 +6,14 @@
 
     <changeSet id="190520261020-books-categories" author="Thang">
         <sql>
-            CREATE TABLE IF NOT EXISTS `books-category` (
+            CREATE TABLE IF NOT EXISTS `book_categories_mapping` (
             book_id bigint not null,
             category_id bigint not null,
-
             primary key (book_id, category_id),
-
-            foreign key (book_id) references books(id),
-            foreign key (category_id) references book_categories(id)
+            foreign key (book_id)
+            references books(id),
+            foreign key (category_id)
+            references book_categories(id)
             );
         </sql>
     </changeSet>

@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.library.manager.enums.Status;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -16,11 +17,12 @@ public class BookResponse {
     Long id;
     String bookCode;
     String bookTitle;
-    Long categoryId;
-    Long authorId;
+    Set<Long> categoryIds;
+    Set<Long> authorIds;
     Long publisherId;
     Long publishedYear;
     Long totalQuantity;
+    Long availableQuantity;
     String shelfLocation;
     Status status;
     LocalDate createdAt;

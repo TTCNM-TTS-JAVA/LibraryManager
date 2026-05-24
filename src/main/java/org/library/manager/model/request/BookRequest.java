@@ -1,10 +1,13 @@
 package org.library.manager.model.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.library.manager.entity.Book;
 import org.library.manager.enums.Status;
+
+import java.util.Set;
 
 @Setter
 @Getter
@@ -14,32 +17,35 @@ import org.library.manager.enums.Status;
 @Builder
 public class BookRequest {
 
-    @NotBlank(message = "")
+    @NotBlank(message = "{max.20.character}")
     @Size(max = 20)
     String bookCode;
 
-    @NotBlank(message = "")
+    @NotBlank(message = "{max.200.character}")
     @Size(max = 200)
     String bookTitle;
 
+    @NotEmpty(message = "{category.id.not.null}")
+    Set<Long> categoryIds;
 
-    Long categoryId;
+    @NotEmpty(message = "{author.id.not.null}")
+    Set<Long> authorIds;
 
-
-    Long authorId;
-
-
+    @NotNull(message = "{publisher.id.not.null}")
     Long publisherId;
 
-
+    @Min(value = 1900,message = "{min.1900}")
     Long publishedYear;
 
-
+    @NotNull(message = "{total.quantity.not.null}")
+    @Min(value = 1,message = "{min.1}")
     Long totalQuantity;
 
+    @NotNull(message = "{available.quantity.not.null}")
+    Long availableQuantity;
 
+    @Size(max = 50,message = "{max.50.character}")
     String shelfLocation;
-
 
     Status status;
 }

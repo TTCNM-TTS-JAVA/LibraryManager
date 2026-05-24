@@ -10,18 +10,20 @@
             id bigint primary key auto_increment,
             code varchar(20) not null,
             name varchar(200) not null,
-            category_id bigint not null,
             publisher_id bigint not null,
             publish_year smallint,
             total_quantity int not null,
             available_quantity int not null,
             shelf_location varchar(50),
-            status enum('ACTIVE', 'INACTIVE') not null default 'ACTIVE',
-            created_at datetime not null default current_timestamp,
-            updated_at datetime not null default current_timestamp on update current_timestamp,
-
-            foreign key (category_id) references book_categories(id),
-            foreign key (publisher_id) references publishers(id)
+            status enum('ACTIVE', 'INACTIVE')
+            not null default 'ACTIVE',
+            created_at datetime not null
+            default current_timestamp,
+            updated_at datetime not null
+            default current_timestamp
+            on update current_timestamp,
+            foreign key (publisher_id)
+            references publishers(id)
             );
         </sql>
     </changeSet>

@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class AuthorResponse {
-
     Long id;
     String fullName;
     String penName;
