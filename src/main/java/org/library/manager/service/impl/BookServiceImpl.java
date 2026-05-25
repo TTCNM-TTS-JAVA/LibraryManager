@@ -36,33 +36,48 @@ public class BookServiceImpl implements BookService {
     private final BookCategoryRepository categoryRepository;
     private final PublisherRepository publisherRepository;
 
+
+
     @Override
     @Transactional(readOnly = true)
     public List<BookResponse> filterBook(int size,int page,BookDto bookDto) {
         Pageable pageable = PageRequest.of(page - 1,size);
+
         Set<Long> authorIdSet = null;
-        if(bookDto.getFilterAuthor() != null
-                && !bookDto.getFilterAuthor().isEmpty()){
-            authorIdSet = new HashSet<>();
-            for(Long authorId : bookDto.getFilterAuthor()){
-                Long id = authorRepository.findById(authorId)
-                        .orElseThrow(() ->
-                                new CustomException(ErrorCode.AUTHOR_NOT_ALREADY_EXIST))
-                        .getId();
-                authorIdSet.add(id);
+
+        if (bookDto.getFilterAuthor() != null
+                && !bookDto.getFilterAuthor().isEmpty()) {
+
+            List<Author> authors = authorRepository
+                    .findAllById(bookDto.getFilterAuthor());
+
+            if (authors.size() != bookDto.getFilterAuthor().size()) {
+                throw new CustomException(
+                        ErrorCode.AUTHOR_NOT_ALREADY_EXIST
+                );
             }
+
+            authorIdSet = authors.stream()
+                    .map(Author::getId)
+                    .collect(Collectors.toSet());
         }
         Set<Long> categoryIdSet = null;
+
         if(bookDto.getFilterCategory() != null
                 && !bookDto.getFilterCategory().isEmpty()){
-            categoryIdSet = new HashSet<>();
-            for(Long categoryId : bookDto.getFilterCategory()){
-                Long id = categoryRepository.findById(categoryId)
-                        .orElseThrow(() ->
-                                new CustomException(ErrorCode.CATEGORY_NOT_ALREADY_EXIST))
-                        .getId();
-                categoryIdSet.add(id);
+
+            List<BookCategory> categories = categoryRepository
+                    .findAllById(bookDto.getFilterCategory());
+
+            if (categories.size() != bookDto.getFilterCategory().size()){
+                throw new CustomException(
+                        ErrorCode.BOOK_CATEGORY_ALREADY_INACTIVE
+                );
             }
+
+            categoryIdSet = categories.stream()
+                    .map(BookCategory::getId).
+                    collect(Collectors.toSet());
         }
 
         Long publisherId = null;
@@ -73,15 +88,9 @@ public class BookServiceImpl implements BookService {
                             new CustomException(ErrorCode.PUBLISHER_NOT_ALREADY_EXIST))
                     .getId();
         }
-        String search = null;
-
-        if(bookDto.getSearch() != null
-                && !bookDto.getSearch().trim().isEmpty()){
-            search = bookDto.getSearch().trim();
-        }
 
         Page<Book> books = bookRepository.filterBook(
-                search,
+                bookDto.getSearch().trim(),
                 bookDto.getStatus(),
                 authorIdSet,
                 categoryIdSet,
@@ -161,26 +170,40 @@ public class BookServiceImpl implements BookService {
             throw new CustomException(ErrorCode.BOOK_CODE_EXISTED);
         }
 
-        Set<Author> authors = new HashSet<>();
+        Set<Author> authors = null;
 
-        for(Long authorId : request.getAuthorIds()){
+        if (request.getAuthorIds() != null
+                && !request.getAuthorIds().isEmpty()){
 
-            Author author = authorRepository.findById(authorId)
-                    .orElseThrow(() ->
-                            new CustomException(ErrorCode.AUTHOR_NOT_ALREADY_EXIST));
+            List<Author> authorList = authorRepository
+                    .findAllById(request.getAuthorIds());
 
-            authors.add(author);
+            if (authorList.size() != request.getAuthorIds().size()){
+                throw new CustomException(
+                        ErrorCode.AUTHOR_NOT_ALREADY_EXIST
+                );
+            }
+
+            authors = authorList.stream()
+                    .collect(Collectors.toSet());
         }
 
-        Set<BookCategory> categories = new HashSet<>();
+        Set<BookCategory> categories = null;
 
-        for(Long categoryId : request.getCategoryIds()){
+        if(request.getCategoryIds() != null
+                && !request.getCategoryIds().isEmpty()){
 
-            BookCategory category = categoryRepository.findById(categoryId)
-                    .orElseThrow(() ->
-                            new CustomException(ErrorCode.CATEGORY_NOT_ALREADY_EXIST));
+            List<BookCategory> categoryList = categoryRepository
+                    .findAllById(request.getCategoryIds());
 
-            categories.add(category);
+            if (categoryList.size() != request.getCategoryIds().size()){
+                throw new CustomException(
+                        ErrorCode.BOOK_CATEGORY_NOT_FOUND
+                );
+            }
+
+            categories = categoryList.stream()
+                    .collect(Collectors.toSet());
         }
 
         Publisher publisher = publisherRepository.findById(request.getPublisherId())
@@ -247,26 +270,40 @@ public class BookServiceImpl implements BookService {
             throw new CustomException(ErrorCode.BOOK_CODE_EXISTED);
         }
 
-        Set<Author> authors = new HashSet<>();
+        Set<Author> authors = null;
 
-        for(Long authorId : request.getAuthorIds()){
+        if (request.getAuthorIds() != null
+                && !request.getAuthorIds().isEmpty()){
 
-            Author author = authorRepository.findById(authorId)
-                    .orElseThrow(() ->
-                            new CustomException(ErrorCode.AUTHOR_NOT_ALREADY_EXIST));
+            List<Author> authorList = authorRepository
+                    .findAllById(request.getAuthorIds());
 
-            authors.add(author);
+            if (authorList.size() != request.getAuthorIds().size()){
+                throw new CustomException(
+                        ErrorCode.AUTHOR_NOT_ALREADY_EXIST
+                );
+            }
+
+            authors = authorList.stream()
+                    .collect(Collectors.toSet());
         }
 
-        Set<BookCategory> categories = new HashSet<>();
+        Set<BookCategory> categories = null;
 
-        for(Long categoryId : request.getCategoryIds()){
+        if (request.getCategoryIds() != null
+                && !request.getCategoryIds().isEmpty()){
 
-            BookCategory category = categoryRepository.findById(categoryId)
-                    .orElseThrow(() ->
-                            new CustomException(ErrorCode.CATEGORY_NOT_ALREADY_EXIST));
+            List<BookCategory> categoryList = categoryRepository
+                    .findAllById(request.getCategoryIds());
 
-            categories.add(category);
+            if (categoryList.size() != request.getCategoryIds().size()){
+                throw new CustomException(
+                        ErrorCode.CATEGORY_NOT_ALREADY_EXIST
+                );
+            }
+
+            categories = categoryList.stream()
+                    .collect(Collectors.toSet());
         }
 
         Publisher publisher = publisherRepository.findById(request.getPublisherId())
