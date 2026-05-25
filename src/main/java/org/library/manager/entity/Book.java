@@ -37,6 +37,9 @@ public class Book {
     @Column(name = "total_quantity")
     Long totalQuantity;
 
+    @Column(name = "available_quantity", nullable = false)
+    Long availableQuantity;
+
     @Column(name = "shelf_location", length = 50)
     String shelfLocation;
 
@@ -55,6 +58,7 @@ public class Book {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
             name = "book_authors",
@@ -63,6 +67,7 @@ public class Book {
     )
     private Set<Author> authors = new HashSet<>();
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
             name = "book_categories_mapping",
