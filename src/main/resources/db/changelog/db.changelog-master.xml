@@ -18,4 +18,6 @@
         <include file="classpath:db/changelog/250520262412-loan_items-fk-book.xml" relativeToChangelogFile="false"/>
         <include file="classpath:db/changelog/250520262412-add_actual-return-date.xml" relativeToChangelogFile="false"/>
         <include file="classpath:db/changelog/250520262414-add_loans_cancellation-reason.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/260520262412-loan_items-n-n-book.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/260520262413-loans-add-cancelled-status.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

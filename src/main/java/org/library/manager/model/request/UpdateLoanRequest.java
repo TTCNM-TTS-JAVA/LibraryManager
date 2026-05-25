@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 @Data
 public class UpdateLoanRequest {
+
     private LocalDate newDueDate;
 
     private LocalDate actualReturnDate;
@@ -18,7 +19,4 @@ public class UpdateLoanRequest {
 
     @Size(max = 500, message = "max.500.character")
     private String processingNote;
-
-
-
 }

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @Data
 public class LoanFilterRequest {
+
     private String memberKeyword;
 
     private LoanStatus status;
@@ -14,6 +15,4 @@ public class LoanFilterRequest {
     private LocalDate fromDate;
 
     private LocalDate toDate;
-
-
 }

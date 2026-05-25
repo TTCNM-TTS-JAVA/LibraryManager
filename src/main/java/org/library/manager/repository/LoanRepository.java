@@ -6,28 +6,43 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
+
     boolean existsByCode(String code);
-    @Query("SELECT l FROM Loan l JOIN l.member m WHERE " +
-            "(:memberKeyword IS NULL OR m.memberCode LIKE CONCAT('%',:memberKeyword,'%') " +
-            "   OR m.fullName LIKE CONCAT('%',:memberKeyword,'%')) " +
-            "AND (:loanStatus IS NULL OR l.status = :loanStatus) " +
-            "AND (:fromDate IS NULL OR l.loanDate >= :fromDate) " +
-            "AND (:toDate IS NULL OR l.loanDate <= :toDate)")
-    Page<Loan> search(String memberKeyword, LoanStatus loanStatus,
-                            LocalDate fromDate, LocalDate toDate, Pageable pageable);
+
+    @Query("SELECT l FROM Loan l JOIN FETCH l.member ORDER BY l.createdAt DESC")
+    Page<Loan> findAllWithMember(Pageable pageable);
+
+    @Query("""
+            SELECT l FROM Loan l JOIN FETCH l.member m
+            WHERE (:memberKeyword IS NULL
+                    OR m.memberCode LIKE CONCAT('%', :memberKeyword, '%')
+                    OR m.fullName   LIKE CONCAT('%', :memberKeyword, '%'))
+              AND (:status   IS NULL OR l.status   = :status)
+              AND (:fromDate IS NULL OR l.loanDate >= :fromDate)
+              AND (:toDate   IS NULL OR l.loanDate <= :toDate)
+            ORDER BY l.createdAt DESC
+            """)
+    Page<Loan> searchWithMember(@Param("memberKeyword") String memberKeyword,
+                                @Param("status") LoanStatus status,
+                                @Param("fromDate") LocalDate fromDate,
+                                @Param("toDate") LocalDate toDate,
+                                Pageable pageable);
 
 
-
-
-
-
-
-
-
+    @Query("""
+            SELECT DISTINCT l FROM Loan l
+            JOIN FETCH l.member
+            LEFT JOIN FETCH l.loanItems li
+            LEFT JOIN FETCH li.books
+            WHERE l.id = :id
+            """)
+    Optional<Loan> findByIdWithDetails(@Param("id") Long id);
 }

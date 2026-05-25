@@ -1,14 +1,17 @@
 package org.library.manager.model.response;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+import java.util.List;
+
+@Getter
 @Builder
 public class LoanItemResponse {
+
     private Long id;
 
-    private Long bookId;
+    private List<Long> bookIds;
 
-    private Integer quantity;
+    private int quantity;
 }

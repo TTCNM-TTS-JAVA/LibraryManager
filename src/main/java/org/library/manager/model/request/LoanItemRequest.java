@@ -1,15 +1,17 @@
 package org.library.manager.model.request;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class LoanItemRequest {
-    @NotNull(message = "bookId.not.null")
-    private Long bookId;
 
-    @NotNull(message = "quantity.not.null")
+    @NotEmpty(message = "bookIds.not.empty")
+    private List<Long> bookIds;
+
     @Min(value = 1, message = "quantity.min.value")
-    private Integer quantity;
+    private int quantity;
 }

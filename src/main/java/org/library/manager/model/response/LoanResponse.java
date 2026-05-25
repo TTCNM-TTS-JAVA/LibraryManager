@@ -1,16 +1,17 @@
 package org.library.manager.model.response;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import org.library.manager.enums.LoanStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
 @Builder
 public class LoanResponse {
+
     private Long id;
 
     private String code;
@@ -23,15 +24,15 @@ public class LoanResponse {
 
     private LocalDate actualReturnDate;
 
+    private String note;
+
     private String cancellationReason;
 
-    private List<LoanItemResponse> itemResponseList;
-
     private LoanStatus status;
+
+    private List<LoanItemResponse> loanItems;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
-
-
 }

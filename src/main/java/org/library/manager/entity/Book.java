@@ -57,7 +57,7 @@ public class Book {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @OneToMany(mappedBy = "book")
+    @ManyToMany(mappedBy = "books")
     private List<LoanItem> loanItemsList = new ArrayList<>();
 
     @Builder.Default

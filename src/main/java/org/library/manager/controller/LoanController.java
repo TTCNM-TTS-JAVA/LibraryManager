@@ -17,51 +17,52 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/loans")
 @RequiredArgsConstructor
 public class LoanController {
-    private final LoanService service;
+
+    private final LoanService loanService;
 
     @GetMapping
     public ResponseEntity<Page<LoanResponse>> getAll(
-            @RequestParam int page,
-            @RequestParam int size) {
-        return ResponseEntity.ok(service.getAllLoan(page, size));
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(loanService.getAll(page, size));
     }
 
     @PostMapping("/filter")
     public ResponseEntity<Page<LoanResponse>> filter(
-            @RequestParam int page,
-            @RequestParam int size,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
             @RequestBody LoanFilterRequest request) {
-        return ResponseEntity.ok(service.filter(page, size, request));
+        return ResponseEntity.ok(loanService.filter(page, size, request));
     }
 
-    @GetMapping("/{loanId}")
-    public ResponseEntity<LoanResponse> getById(@PathVariable Long loanId) {
-        return ResponseEntity.ok(service.getLoanById(loanId));
+    @GetMapping("/{id}")
+    public ResponseEntity<LoanResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(loanService.getById(id));
     }
 
     @PostMapping
     public ResponseEntity<LoanResponse> create(@RequestBody @Valid CreateLoanRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(loanService.create(request));
     }
 
-    @PutMapping("/{loanId}")
+    @PutMapping("/{id}")
     public ResponseEntity<LoanResponse> update(
-            @PathVariable Long loanId,
+            @PathVariable Long id,
             @RequestBody @Valid UpdateLoanRequest request) {
-        return ResponseEntity.ok(service.update(loanId, request));
+        return ResponseEntity.ok(loanService.update(id, request));
     }
 
-    @PatchMapping("/{loanId}/cancel")
-    public ResponseEntity<Void> cancelLoan(
-            @PathVariable Long loanId,
+    @PatchMapping("/{id}/cancel")
+    public ResponseEntity<Void> cancel(
+            @PathVariable Long id,
             @RequestBody @Valid CancelLoanRequest request) {
-        service.cancelLoan(loanId, request);
+        loanService.cancel(id, request);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{loanId}")
-    public ResponseEntity<Void> deleteLoan(@PathVariable Long loanId) {
-        service.deleteLoan(loanId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        loanService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

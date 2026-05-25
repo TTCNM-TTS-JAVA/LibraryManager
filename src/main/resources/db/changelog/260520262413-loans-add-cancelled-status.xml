@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="260520262413-loans-add-cancelled-status" author="cuongdo">
+        <comment>Thêm giá trị CANCELLED vào enum status của bảng loans</comment>
+        <sql>
+            ALTER TABLE loans
+                MODIFY COLUMN status ENUM('BORROWING', 'RETURNED', 'OVERDUE', 'CANCELLED') NOT NULL DEFAULT 'BORROWING';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
