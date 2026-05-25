@@ -37,9 +37,6 @@ public class Book {
     @Column(name = "total_quantity")
     Long totalQuantity;
 
-    @Column(name = "available_quantity", nullable = false)
-    Long availableQuantity;
-
     @Column(name = "shelf_location", length = 50)
     String shelfLocation;
 

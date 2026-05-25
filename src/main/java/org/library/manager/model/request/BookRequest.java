@@ -41,9 +41,6 @@ public class BookRequest {
     @Min(value = 1,message = "{min.1}")
     Long totalQuantity;
 
-    @NotNull(message = "{available.quantity.not.null}")
-    Long availableQuantity;
-
     @Size(max = 50,message = "{max.50.character}")
     String shelfLocation;
 
