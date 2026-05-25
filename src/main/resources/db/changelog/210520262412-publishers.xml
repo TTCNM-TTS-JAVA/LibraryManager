@@ -7,7 +7,7 @@
     <changeSet id="210520262412-publishers" author="cuongdo">
         <comment>Ví dụ sử dụng liquibase, xem thêm trong file db/changelog/db.changelog-master.xml có include file này</comment>
         <sql>
-            CREATE TABLE publishers (
+            CREATE TABLE IF NOT EXISTS publishers (
                 id bigint primary key auto_increment,
                 name varchar(150) not null,
                 contact_email varchar(150),

@@ -19,7 +19,12 @@ public enum ErrorCode {
     MEMBER_NOT_EXISTED(5004, "member.not.existed", HttpStatus.NOT_FOUND),
     BOOK_CATEGORY_NOT_FOUND(4041, "book-category.not.found", HttpStatus.NOT_FOUND),
     BOOK_CATEGORY_NAME_DUPLICATED(4091, "book-category.name.duplicated", HttpStatus.CONFLICT),
-    BOOK_CATEGORY_ALREADY_INACTIVE(4092, "book-category.already.inactive", HttpStatus.CONFLICT);
+    BOOK_CATEGORY_ALREADY_INACTIVE(4092, "book-category.already.inactive", HttpStatus.CONFLICT),
+    LOAN_NOT_FOUND(4041, "loan.not.found", HttpStatus.NOT_FOUND),
+    LOAN_INVALID_DUE_DATE(4094, "loan.invalid.due.date", HttpStatus.BAD_REQUEST),
+    LOAN_CANNOT_UPDATE_CANCELLED(4096, "loan.cannot.update.cancelled", HttpStatus.CONFLICT),
+    LOAN_CANNOT_DELETE(4097, "loan.cannot.delete", HttpStatus.CONFLICT);
+
 
 
     ErrorCode(int code, String message, HttpStatusCode httpStatusCode) {

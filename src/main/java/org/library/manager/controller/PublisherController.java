@@ -7,6 +7,7 @@ import org.library.manager.model.request.PublisherFilterRequest;
 import org.library.manager.model.request.PublisherRequest;
 import org.library.manager.model.response.PublisherResponse;
 import org.library.manager.service.PublisherService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ import java.util.List;
 public class PublisherController {
     private final PublisherService service;
     @PostMapping("/filter")
-    public ResponseEntity<List<PublisherResponse>> filter(@RequestParam int size,
+    public ResponseEntity<Page<PublisherResponse>> filter(@RequestParam int size,
                                                           @RequestParam int page,
                                                           @RequestBody PublisherFilterRequest request){
         return ResponseEntity.ok(service.filter(size, page, request));

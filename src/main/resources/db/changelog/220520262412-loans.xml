@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="220520262412-loans" author="cuongdo">
+        <comment>tạo bảng loans</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS loans (
+                id bigint primary key auto_increment,
+                code varchar(20) not null,
+                member_id bigint not null,
+                loan_date date not null,
+                due_date date not null,
+                status enum(
+                               'BORROWING',
+                               'RETURNED',
+                               'OVERDUE') not null default 'BORROWING',
+                note varchar(500),
+                created_at datetime not null default current_timestamp,
+                updated_at datetime not null default current_timestamp on update current_timestamp,
+                foreign key (member_id) references members(id)
+                )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

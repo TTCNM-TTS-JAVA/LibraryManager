@@ -12,6 +12,7 @@ import org.library.manager.model.request.PublisherRequest;
 import org.library.manager.model.response.PublisherResponse;
 import org.library.manager.repository.PublisherRepository;
 import org.library.manager.service.PublisherService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -42,13 +43,12 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     @Transactional
-    public List<PublisherResponse> filter(int size, int page, PublisherFilterRequest request) {
+    public Page<PublisherResponse> filter(int size, int page, PublisherFilterRequest request) {
         String keyword = request.getKeyword();
         String name = (keyword != null && !keyword.isBlank()) ? keyword.trim() : null;
         Pageable pageable = PageRequest.of(page, size, Sort.by("updatedAt").descending());
         return publisherRepo.search(name, request.getStatus(), pageable)
-                .map(this::toResponse)
-                .getContent();
+                .map(this::toResponse);
     }
 
     @Override
