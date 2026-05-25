@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.library.manager.enums.Status;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -12,13 +13,17 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class AuthorResponse {
+public class BookResponse {
     Long id;
-    String fullName;
-    String penName;
-    String country;
-    String shortDescription;
+    String bookCode;
+    String bookTitle;
+    Set<Long> categoryIds;
+    Set<Long> authorIds;
+    Long publisherId;
+    Long publishedYear;
+    Long totalQuantity;
+    String shelfLocation;
     Status status;
-    LocalDate createAt;
-    LocalDate updateAt;
+    LocalDate createdAt;
+    LocalDate updatedAt;
 }

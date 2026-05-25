@@ -7,6 +7,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.library.manager.enums.PublisherStatus;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "publishers")
@@ -47,6 +51,6 @@ public class Publisher {
     @Column(name = "deactivation", length = 500)
     private String deactivationReason;
 
-
-
+    @OneToMany(mappedBy = "publisher")
+    private Set<Book> books = new HashSet<>();
 }
