@@ -30,8 +30,8 @@ public enum ErrorCode {
     LOAN_NOT_FOUND(4041, "loan.not.found", HttpStatus.NOT_FOUND),
     LOAN_INVALID_DUE_DATE(4094, "loan.invalid.due.date", HttpStatus.BAD_REQUEST),
     LOAN_CANNOT_UPDATE_CANCELLED(4096, "loan.cannot.update.cancelled", HttpStatus.CONFLICT),
-    LOAN_CANNOT_DELETE(4097, "loan.cannot.delete", HttpStatus.CONFLICT);
-
+    LOAN_CANNOT_DELETE(4097, "loan.cannot.delete", HttpStatus.CONFLICT),
+    BOOK_NOT_FOUND(4041, "book.not.found", HttpStatus.NOT_FOUND);
 
 
 

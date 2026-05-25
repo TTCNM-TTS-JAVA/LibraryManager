@@ -21,8 +21,9 @@ public class LoanItem {
     @JoinColumn(name = "loan_id", nullable = false)
     private Loan loan;
 
-    @Column(name = "book_id", nullable = false)
-    Long bookId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="250520262412-loan_items-fk-book" author="cuongdo">
+        <comment>Thêm foreign key book_id trong bảng loan_items tham chiếu sang bảng books</comment>
+        <sql>
+            ALTER TABLE loan_items
+                ADD CONSTRAINT fk_loan_items_book
+                FOREIGN KEY (book_id) REFERENCES books(id);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

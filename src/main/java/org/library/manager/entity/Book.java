@@ -8,7 +8,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.library.manager.enums.Status;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -55,6 +57,9 @@ public class Book {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
+    @OneToMany(mappedBy = "book")
+    private List<LoanItem> loanItemsList = new ArrayList<>();
+
     @Builder.Default
     @ManyToMany
     @JoinTable(
@@ -72,4 +77,6 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<BookCategory> categories = new HashSet<>();
+
+
 }

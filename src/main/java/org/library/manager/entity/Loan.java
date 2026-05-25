@@ -42,6 +42,12 @@ public class Loan {
     @Column(name = "note", length = 500)
     private String note;
 
+    @Column(name = "actual_return_date")
+    private LocalDate actualReturnDate;
+
+    @Column(name = "cancellation_reason", length = 500)
+    private String cancellationReason;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private LoanStatus status;

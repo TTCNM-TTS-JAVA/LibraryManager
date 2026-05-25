@@ -21,6 +21,10 @@ public class LoanResponse {
 
     private LocalDate dueDate;
 
+    private LocalDate actualReturnDate;
+
+    private String cancellationReason;
+
     private List<LoanItemResponse> itemResponseList;
 
     private LoanStatus status;
