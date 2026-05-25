@@ -27,4 +27,9 @@
             );
         </sql>
     </changeSet>
+    <changeSet id="190520261022-remove-available_quantity" author="Thang">
+        <sql>
+            ALTER TABLE `books` DROP COLUMN available_quantity ;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

@@ -22,7 +22,6 @@ public class BookResponse {
     Long publisherId;
     Long publishedYear;
     Long totalQuantity;
-    Long availableQuantity;
     String shelfLocation;
     Status status;
     LocalDate createdAt;

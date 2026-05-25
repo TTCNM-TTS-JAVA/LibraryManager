@@ -124,7 +124,6 @@ public class BookServiceImpl implements BookService {
                         .publisherId(book.getPublisher().getId())
                         .publishedYear(book.getPublishedYear())
                         .totalQuantity(book.getTotalQuantity())
-                        .availableQuantity(book.getAvailableQuantity())
                         .shelfLocation(book.getShelfLocation())
                         .status(book.getStatus())
                         .createdAt(book.getCreatedAt())
@@ -160,7 +159,6 @@ public class BookServiceImpl implements BookService {
                 .publisherId(book.getPublisher().getId())
                 .publishedYear(book.getPublishedYear())
                 .totalQuantity(book.getTotalQuantity())
-                .availableQuantity(book.getAvailableQuantity())
                 .shelfLocation(book.getShelfLocation())
                 .status(book.getStatus())
                 .createdAt(book.getCreatedAt())
@@ -216,9 +214,6 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() ->
                         new CustomException(ErrorCode.PUBLISHER_NOT_ALREADY_EXIST));
 
-        if (request.getTotalQuantity()<request.getAvailableQuantity()){
-            throw new CustomException(ErrorCode.INVALID_RETURN_QUANTITY);
-        }
 
         Book book = Book.builder()
                 .bookCode(request.getBookCode())
@@ -228,7 +223,6 @@ public class BookServiceImpl implements BookService {
                 .publisher(publisher)
                 .publishedYear(request.getPublishedYear())
                 .totalQuantity(request.getTotalQuantity())
-                .availableQuantity(request.getAvailableQuantity())
                 .shelfLocation(request.getShelfLocation())
                 .status(request.getStatus())
                 .build();
@@ -254,7 +248,6 @@ public class BookServiceImpl implements BookService {
                 .publisherId(book.getPublisher().getId())
                 .publishedYear(book.getPublishedYear())
                 .totalQuantity(book.getTotalQuantity())
-                .availableQuantity(book.getAvailableQuantity())
                 .shelfLocation(book.getShelfLocation())
                 .status(book.getStatus())
                 .createdAt(book.getCreatedAt())
@@ -316,11 +309,6 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() ->
                         new CustomException(ErrorCode.PUBLISHER_NOT_ALREADY_EXIST));
 
-        if (request.getTotalQuantity()<request.getAvailableQuantity()){
-            throw new CustomException(ErrorCode.INVALID_RETURN_QUANTITY);
-        } else if (request.getTotalQuantity() < (book.getTotalQuantity()-book.getAvailableQuantity())) {
-            throw new CustomException(ErrorCode.TOTAL_QUANTITY_LESS_THAN_BORROWED);
-        }
 
         book.setBookCode(request.getBookCode());
         book.setBookTitle(request.getBookTitle());
@@ -328,8 +316,7 @@ public class BookServiceImpl implements BookService {
         book.setCategories(categories);
         book.setPublisher(publisher);
         book.setPublishedYear(request.getPublishedYear());
-        book.setAvailableQuantity(request.getAvailableQuantity());
-        book.setAvailableQuantity(request.getAvailableQuantity());
+        book.setTotalQuantity(request.getTotalQuantity());
         book.setShelfLocation(request.getShelfLocation());
         book.setStatus(request.getStatus());
 
@@ -354,7 +341,6 @@ public class BookServiceImpl implements BookService {
                 .publisherId(book.getPublisher().getId())
                 .publishedYear(book.getPublishedYear())
                 .totalQuantity(book.getTotalQuantity())
-                .availableQuantity(book.getAvailableQuantity())
                 .shelfLocation(book.getShelfLocation())
                 .status(book.getStatus())
                 .createdAt(book.getCreatedAt())
