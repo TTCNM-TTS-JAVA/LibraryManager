@@ -5,9 +5,13 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
         <include file="classpath:db/changelog/190520261015-example.xml" relativeToChangelogFile="false"/>
-        <include file="classpath:db/changelog/210520262412-publishers.xml" relativeToChangelogFile="false"/>
         <include file="classpath:db/changelog/190520261016-author.xml" relativeToChangelogFile="false"/>
         <include file="classpath:db/changelog/190520261017-member.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/210520262412-publishers.xml" relativeToChangelogFile="false"/>
         <include file="classpath:db/changelog/190520262412-book_categories.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/190520261018-book.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/190520261020-books-categories.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/190520261019-book-author.xml" relativeToChangelogFile="false"/>
         <include file="classpath:db/changelog/21052026-add-deactivation-column.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>

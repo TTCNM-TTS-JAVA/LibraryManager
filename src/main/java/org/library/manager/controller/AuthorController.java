@@ -2,7 +2,7 @@ package org.library.manager.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.library.manager.model.AuthorDto;
+import org.library.manager.model.dto.AuthorDto;
 import org.library.manager.model.request.CreateAuthorRequest;
 import org.library.manager.model.request.UpdateAuthorRequest;
 import org.library.manager.model.response.AuthorResponse;
