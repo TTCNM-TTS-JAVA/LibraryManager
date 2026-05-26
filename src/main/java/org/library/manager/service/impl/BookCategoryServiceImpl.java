@@ -12,6 +12,7 @@ import org.library.manager.model.request.DeactivationReason;
 import org.library.manager.model.response.BookCategoryResponse;
 import org.library.manager.repository.BookCategoryRepository;
 import org.library.manager.service.BookCategoryService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -32,13 +33,12 @@ public class BookCategoryServiceImpl implements BookCategoryService {
     }
     @Override
     @Transactional(readOnly = true)
-    public List<BookCategoryResponse> filter(int size, int page, BookCategoryFilterRequest request){
+    public Page<BookCategoryResponse> filter(int size, int page, BookCategoryFilterRequest request){
         String keyword = request.getKeyword();
         String name = (keyword != null && !keyword.isBlank()) ? keyword.trim() : null;
         Pageable pageable = PageRequest.of(page, size, Sort.by("updatedAt").descending());
         return bookCategoryRepo.search(name, request.getStatus(), pageable)
-                .map(this::toResponse)
-                .getContent();
+                .map(this::toResponse);
     }
     @Override
     @Transactional

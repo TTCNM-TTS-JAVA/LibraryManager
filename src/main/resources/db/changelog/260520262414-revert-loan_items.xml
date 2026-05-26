@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="260520262414-drop-loan_item_books" author="cuongdo">
+        <sql>DROP TABLE IF EXISTS loan_item_books;</sql>
+    </changeSet>
+
+    <changeSet id="260520262414-add-book_id-to-loan_items" author="cuongdo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="loan_items" columnName="book_id"/>
+            </not>
+        </preConditions>
+        <sql>DELETE FROM loan_items;</sql>
+        <sql>ALTER TABLE loan_items ADD COLUMN book_id bigint NOT NULL;</sql>
+    </changeSet>
+
+    <changeSet id="260520262415-add-fk-loan_items-book" author="cuongdo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists
+                        foreignKeyName="fk_loan_items_book"
+                        schemaName="library_manager"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+                baseTableName="loan_items"
+                baseColumnNames="book_id"
+                constraintName="fk_loan_items_book"
+                referencedTableName="books"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

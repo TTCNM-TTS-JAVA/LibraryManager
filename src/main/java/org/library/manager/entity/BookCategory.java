@@ -1,10 +1,7 @@
 package org.library.manager.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.library.manager.enums.Status;
@@ -15,7 +12,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "book_categories")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

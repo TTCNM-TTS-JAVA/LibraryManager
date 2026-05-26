@@ -4,11 +4,12 @@ import org.library.manager.model.request.BookCategoryFilterRequest;
 import org.library.manager.model.request.BookCategoryRequest;
 import org.library.manager.model.request.DeactivationReason;
 import org.library.manager.model.response.BookCategoryResponse;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface BookCategoryService {
-    List<BookCategoryResponse> filter(int size, int page, BookCategoryFilterRequest request);
+    Page<BookCategoryResponse> filter(int size, int page, BookCategoryFilterRequest request);
 
     BookCategoryResponse create(BookCategoryRequest request);
 

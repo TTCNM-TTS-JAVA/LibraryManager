@@ -3,12 +3,15 @@ package org.library.manager.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.library.manager.enums.Status;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -51,9 +54,12 @@ public class Book {
     @Column(name = "updated_at", nullable = false)
     LocalDate updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
+
+    @OneToMany(mappedBy = "book")
+    private List<LoanItem> loanItems = new ArrayList<>();
 
     @Builder.Default
     @ManyToMany
@@ -72,4 +78,6 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<BookCategory> categories = new HashSet<>();
+
+
 }

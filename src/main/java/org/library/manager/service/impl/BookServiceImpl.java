@@ -136,7 +136,7 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     public BookResponse getBookById(Long bookId) {
 
-        Book book = bookRepository.findById(bookId)
+        Book book = bookRepository.findByIdWithDetails(bookId)
                 .orElseThrow(() ->
                         new CustomException(ErrorCode.BOOK_NOT_EXISTED));
 

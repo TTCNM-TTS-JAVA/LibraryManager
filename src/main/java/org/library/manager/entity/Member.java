@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.library.manager.enums.Status;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "members")
@@ -50,4 +52,7 @@ public class Member {
     @UpdateTimestamp
     @Column(name = "updated_at",insertable = false)
     LocalDate updatedAt;
+
+    @OneToMany(mappedBy = "member")
+    private List<Loan> loanList = new ArrayList<>();
 }
