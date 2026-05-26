@@ -125,6 +125,7 @@ public class LoanServiceImpl implements LoanService {
         loan.setActualReturnDate(request.getActualReturnDate());
         if (request.getProcessingNote() != null) loan.setNote(request.getProcessingNote());
 
+        loanRepo.save(loan);
         return toResponse(loan);
     }
 
@@ -141,12 +142,13 @@ public class LoanServiceImpl implements LoanService {
         }
 
         loan.setDueDate(request.getNewDueDate());
+        loanRepo.save(loan);
         return toResponse(loan);
     }
 
     @Override
     @Transactional
-    public void cancel(Long loanId, CancelLoanRequest request) {
+    public LoanResponse cancel(Long loanId, CancelLoanRequest request) {
         Loan loan = findWithDetailsOrThrow(loanId);
 
         if (LoanStatus.CANCELLED.equals(loan.getStatus())) {
@@ -159,6 +161,8 @@ public class LoanServiceImpl implements LoanService {
         restoreStock(loan);
         loan.setStatus(LoanStatus.CANCELLED);
         loan.setCancellationReason(request.getCancellationReason());
+        loanRepo.save(loan);
+        return toResponse(loan);
     }
 
     @Override

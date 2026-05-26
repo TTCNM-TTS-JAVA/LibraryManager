@@ -20,7 +20,7 @@ public interface LoanService {
 
     LoanResponse extendLoan(Long loanId, ExtendLoanRequest request);
 
-    void cancel(Long loanId, CancelLoanRequest request);
+    LoanResponse cancel(Long loanId, CancelLoanRequest request);
 
     void delete(Long loanId);
 }

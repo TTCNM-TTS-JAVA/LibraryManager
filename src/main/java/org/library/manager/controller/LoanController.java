@@ -57,8 +57,7 @@ public class LoanController {
     public ResponseEntity<LoanResponse> cancel(
             @PathVariable Long id,
             @RequestBody @Valid CancelLoanRequest request) {
-        loanService.cancel(id, request);
-        return ResponseEntity.ok(loanService.getById(id));
+        return ResponseEntity.ok(loanService.cancel(id, request));
     }
 
     @DeleteMapping("/{id}")
