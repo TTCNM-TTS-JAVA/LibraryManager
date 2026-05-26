@@ -47,13 +47,18 @@ public class LoanServiceImpl implements LoanService {
     @Transactional(readOnly = true)
     public Page<LoanResponse> getAll(int page, int size, LoanFilterRequest filter) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        return loanRepo.searchWithMember(
+        Page<Loan> loanPage = loanRepo.searchWithMember(
                 filter.getMemberKeyword(),
                 filter.getStatus(),
                 filter.getFromDate(),
                 filter.getToDate(),
                 pageable
-        ).map(this::toResponse);
+        );
+        List<Long> ids = loanPage.getContent().stream().map(Loan::getId).toList();
+        if (!ids.isEmpty()) {
+            loanRepo.findAllByIdsWithLoanItems(ids);
+        }
+        return loanPage.map(this::toResponse);
     }
 
     @Override
@@ -100,7 +105,7 @@ public class LoanServiceImpl implements LoanService {
         }
 
         loanRepo.save(loan);
-        return toResponse(loan);
+        return toResponse(findWithDetailsOrThrow(loan.getId()));
     }
 
     @Override
@@ -120,7 +125,6 @@ public class LoanServiceImpl implements LoanService {
         loan.setActualReturnDate(request.getActualReturnDate());
         if (request.getProcessingNote() != null) loan.setNote(request.getProcessingNote());
 
-        loanRepo.save(loan);
         return toResponse(loan);
     }
 
@@ -137,7 +141,6 @@ public class LoanServiceImpl implements LoanService {
         }
 
         loan.setDueDate(request.getNewDueDate());
-        loanRepo.save(loan);
         return toResponse(loan);
     }
 
@@ -156,7 +159,6 @@ public class LoanServiceImpl implements LoanService {
         restoreStock(loan);
         loan.setStatus(LoanStatus.CANCELLED);
         loan.setCancellationReason(request.getCancellationReason());
-        loanRepo.save(loan);
     }
 
     @Override
@@ -219,7 +221,7 @@ public class LoanServiceImpl implements LoanService {
         List<LoanItemResponse> items = loan.getLoanItems().stream()
                 .map(item -> LoanItemResponse.builder()
                         .id(item.getId())
-                        .bookId(item.getBook().getId())
+                        .bookId(item.getBookId())
                         .quantity(item.getQuantity())
                         .build())
                 .toList();

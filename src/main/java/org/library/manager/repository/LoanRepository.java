@@ -10,15 +10,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     boolean existsByCode(String code);
-
-    @Query("SELECT l FROM Loan l JOIN FETCH l.member ORDER BY l.createdAt DESC")
-    Page<Loan> findAllWithMember(Pageable pageable);
 
     @Query("""
             SELECT l FROM Loan l JOIN FETCH l.member m
@@ -45,4 +43,12 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
             WHERE l.id = :id
             """)
     Optional<Loan> findByIdWithDetails(@Param("id") Long id);
+
+    @Query("""
+            SELECT DISTINCT l FROM Loan l
+            LEFT JOIN FETCH l.loanItems li
+            LEFT JOIN FETCH li.book
+            WHERE l.id IN :ids
+            """)
+    List<Loan> findAllByIdsWithLoanItems(@Param("ids") List<Long> ids);
 }

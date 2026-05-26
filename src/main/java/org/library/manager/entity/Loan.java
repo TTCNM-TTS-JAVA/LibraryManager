@@ -2,7 +2,6 @@ package org.library.manager.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.library.manager.enums.LoanStatus;
@@ -51,7 +50,6 @@ public class Loan {
     @Column(name = "status", nullable = false)
     private LoanStatus status;
 
-    @BatchSize(size = 30)
     @Builder.Default
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LoanItem> loanItems = new ArrayList<>();

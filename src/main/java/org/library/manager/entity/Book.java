@@ -16,7 +16,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "books")
-@BatchSize(size = 30)
 @Setter
 @Getter
 @AllArgsConstructor

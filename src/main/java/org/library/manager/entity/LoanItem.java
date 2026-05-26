@@ -25,6 +25,10 @@ public class LoanItem {
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
+    // Scalar FK — đọc trực tiếp từ cột book_id, không trigger proxy load
+    @Column(name = "book_id", insertable = false, updatable = false)
+    private Long bookId;
+
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 }
