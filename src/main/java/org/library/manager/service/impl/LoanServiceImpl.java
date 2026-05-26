@@ -205,8 +205,26 @@ public class LoanServiceImpl implements LoanService {
     }
 
     private void restoreStock(Loan loan) {
+
+        List<Long> bookIds = loan.getLoanItems().stream()
+                .map(LoanItem::getBookId)
+                .distinct()
+                .toList();
+
+        Map<Long, Book> bookMap = bookRepo.findAllById(bookIds)
+                .stream()
+                .collect(Collectors.toMap(Book::getId, Function.identity()));
+
         for (LoanItem item : loan.getLoanItems()) {
-            item.getBook().setTotalQuantity(item.getBook().getTotalQuantity() + item.getQuantity());
+
+            Book book = bookMap.get(item.getBookId());
+
+            if (book == null) {
+                throw new CustomException(ErrorCode.BOOK_NOT_EXISTED);
+            }
+            book.setTotalQuantity(
+                    book.getTotalQuantity() + item.getQuantity()
+            );
         }
     }
 
