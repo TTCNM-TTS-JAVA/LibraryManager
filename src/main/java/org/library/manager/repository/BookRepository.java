@@ -18,7 +18,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
         @EntityGraph(attributePaths = {
                 "authors",
-                "categories"
+                "categories",
+                "publisher"
         })
         @Query("""
             SELECT DISTINCT b
@@ -55,4 +56,13 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                 Long filterPublisher,
                 Pageable pageable
         );
+
+        @Query("""
+            SELECT b FROM Book b
+            LEFT JOIN FETCH b.publisher
+            LEFT JOIN FETCH b.authors
+            LEFT JOIN FETCH b.categories
+            WHERE b.id = :id
+            """)
+        java.util.Optional<Book> findByIdWithDetails(@org.springframework.data.repository.query.Param("id") Long id);
 }

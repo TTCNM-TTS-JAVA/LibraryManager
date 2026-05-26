@@ -3,6 +3,7 @@ package org.library.manager.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.library.manager.enums.Status;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "books")
+@BatchSize(size = 30)
 @Setter
 @Getter
 @AllArgsConstructor
@@ -53,12 +55,12 @@ public class Book {
     @Column(name = "updated_at", nullable = false)
     LocalDate updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @ManyToMany(mappedBy = "books")
-    private List<LoanItem> loanItemsList = new ArrayList<>();
+    @OneToMany(mappedBy = "book")
+    private List<LoanItem> loanItems = new ArrayList<>();
 
     @Builder.Default
     @ManyToMany

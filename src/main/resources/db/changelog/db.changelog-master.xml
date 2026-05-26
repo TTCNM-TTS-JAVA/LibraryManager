@@ -20,4 +20,5 @@
         <include file="classpath:db/changelog/250520262414-add_loans_cancellation-reason.xml" relativeToChangelogFile="false"/>
         <include file="classpath:db/changelog/260520262412-loan_items-n-n-book.xml" relativeToChangelogFile="false"/>
         <include file="classpath:db/changelog/260520262413-loans-add-cancelled-status.xml" relativeToChangelogFile="false"/>
+        <include file="classpath:db/changelog/260520262414-revert-loan_items.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

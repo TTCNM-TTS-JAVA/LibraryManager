@@ -11,9 +11,10 @@ import org.library.manager.exception.CustomException;
 import org.library.manager.exception.ErrorCode;
 import org.library.manager.model.request.CancelLoanRequest;
 import org.library.manager.model.request.CreateLoanRequest;
+import org.library.manager.model.request.ExtendLoanRequest;
 import org.library.manager.model.request.LoanFilterRequest;
 import org.library.manager.model.request.LoanItemRequest;
-import org.library.manager.model.request.UpdateLoanRequest;
+import org.library.manager.model.request.ReturnLoanRequest;
 import org.library.manager.model.response.LoanItemResponse;
 import org.library.manager.model.response.LoanResponse;
 import org.library.manager.repository.BookRepository;
@@ -44,20 +45,13 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<LoanResponse> getAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page - 1, size);
-        return loanRepo.findAllWithMember(pageable).map(this::toResponse);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Page<LoanResponse> filter(int page, int size, LoanFilterRequest request) {
+    public Page<LoanResponse> getAll(int page, int size, LoanFilterRequest filter) {
         Pageable pageable = PageRequest.of(page - 1, size);
         return loanRepo.searchWithMember(
-                request.getMemberKeyword(),
-                request.getStatus(),
-                request.getFromDate(),
-                request.getToDate(),
+                filter.getMemberKeyword(),
+                filter.getStatus(),
+                filter.getFromDate(),
+                filter.getToDate(),
                 pageable
         ).map(this::toResponse);
     }
@@ -95,16 +89,13 @@ public class LoanServiceImpl implements LoanService {
                 .build();
 
         for (LoanItemRequest itemReq : request.getLoanItems()) {
+            Book book = bookMap.get(itemReq.getBookId());
             LoanItem loanItem = LoanItem.builder()
                     .loan(loan)
+                    .book(book)
                     .quantity(itemReq.getQuantity())
                     .build();
-
-            for (Long bookId : itemReq.getBookIds()) {
-                Book book = bookMap.get(bookId);
-                loanItem.getBooks().add(book);
-                book.setTotalQuantity(book.getTotalQuantity() - itemReq.getQuantity());
-            }
+            book.setTotalQuantity(book.getTotalQuantity() - itemReq.getQuantity());
             loan.getLoanItems().add(loanItem);
         }
 
@@ -114,30 +105,38 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     @Transactional
-    public LoanResponse update(Long loanId, UpdateLoanRequest request) {
+    public LoanResponse returnLoan(Long loanId, ReturnLoanRequest request) {
         Loan loan = findWithDetailsOrThrow(loanId);
 
         if (LoanStatus.CANCELLED.equals(loan.getStatus())) {
             throw new CustomException(ErrorCode.LOAN_CANNOT_UPDATE_CANCELLED);
         }
-        if (LoanStatus.CANCELLED.equals(request.getStatus())) {
-            throw new CustomException(ErrorCode.LOAN_CANNOT_UPDATE_CANCELLED);
+        if (LoanStatus.RETURNED.equals(loan.getStatus())) {
+            throw new CustomException(ErrorCode.LOAN_ALREADY_RETURNED);
         }
-        if (request.getNewDueDate() != null && request.getNewDueDate().isBefore(loan.getDueDate())) {
+
+        restoreStock(loan);
+        loan.setStatus(LoanStatus.RETURNED);
+        loan.setActualReturnDate(request.getActualReturnDate());
+        if (request.getProcessingNote() != null) loan.setNote(request.getProcessingNote());
+
+        loanRepo.save(loan);
+        return toResponse(loan);
+    }
+
+    @Override
+    @Transactional
+    public LoanResponse extendLoan(Long loanId, ExtendLoanRequest request) {
+        Loan loan = findWithDetailsOrThrow(loanId);
+
+        if (!LoanStatus.BORROWING.equals(loan.getStatus())) {
+            throw new CustomException(ErrorCode.LOAN_CANNOT_EXTEND);
+        }
+        if (!request.getNewDueDate().isAfter(loan.getDueDate())) {
             throw new CustomException(ErrorCode.LOAN_INVALID_DUE_DATE);
         }
 
-        boolean becomingReturned = LoanStatus.RETURNED.equals(request.getStatus())
-                && !LoanStatus.RETURNED.equals(loan.getStatus());
-        if (becomingReturned) {
-            restoreStock(loan);
-        }
-
-        if (request.getNewDueDate() != null)      loan.setDueDate(request.getNewDueDate());
-        if (request.getActualReturnDate() != null) loan.setActualReturnDate(request.getActualReturnDate());
-        if (request.getProcessingNote() != null)   loan.setNote(request.getProcessingNote());
-        loan.setStatus(request.getStatus());
-
+        loan.setDueDate(request.getNewDueDate());
         loanRepo.save(loan);
         return toResponse(loan);
     }
@@ -180,7 +179,7 @@ public class LoanServiceImpl implements LoanService {
 
     private Map<Long, Book> loadBookMap(List<LoanItemRequest> items) {
         List<Long> bookIds = items.stream()
-                .flatMap(item -> item.getBookIds().stream())
+                .map(LoanItemRequest::getBookId)
                 .distinct()
                 .toList();
         return bookRepo.findAllById(bookIds).stream()
@@ -189,23 +188,19 @@ public class LoanServiceImpl implements LoanService {
 
     private void validateStock(List<LoanItemRequest> items, Map<Long, Book> bookMap) {
         for (LoanItemRequest itemReq : items) {
-            for (Long bookId : itemReq.getBookIds()) {
-                Book book = bookMap.get(bookId);
-                if (book == null || !Status.ACTIVE.equals(book.getStatus())) {
-                    throw new CustomException(ErrorCode.BOOK_NOT_EXISTED);
-                }
-                if (book.getTotalQuantity() < itemReq.getQuantity()) {
-                    throw new CustomException(ErrorCode.TOTAL_QUANTITY_LESS_THAN_BORROWED);
-                }
+            Book book = bookMap.get(itemReq.getBookId());
+            if (book == null || !Status.ACTIVE.equals(book.getStatus())) {
+                throw new CustomException(ErrorCode.BOOK_NOT_EXISTED);
+            }
+            if (book.getTotalQuantity() < itemReq.getQuantity()) {
+                throw new CustomException(ErrorCode.TOTAL_QUANTITY_LESS_THAN_BORROWED);
             }
         }
     }
 
     private void restoreStock(Loan loan) {
         for (LoanItem item : loan.getLoanItems()) {
-            for (Book book : item.getBooks()) {
-                book.setTotalQuantity(book.getTotalQuantity() + item.getQuantity());
-            }
+            item.getBook().setTotalQuantity(item.getBook().getTotalQuantity() + item.getQuantity());
         }
     }
 
@@ -224,7 +219,7 @@ public class LoanServiceImpl implements LoanService {
         List<LoanItemResponse> items = loan.getLoanItems().stream()
                 .map(item -> LoanItemResponse.builder()
                         .id(item.getId())
-                        .bookIds(item.getBooks().stream().map(Book::getId).toList())
+                        .bookId(item.getBook().getId())
                         .quantity(item.getQuantity())
                         .build())
                 .toList();

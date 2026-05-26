@@ -41,7 +41,7 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
             SELECT DISTINCT l FROM Loan l
             JOIN FETCH l.member
             LEFT JOIN FETCH l.loanItems li
-            LEFT JOIN FETCH li.books
+            LEFT JOIN FETCH li.book
             WHERE l.id = :id
             """)
     Optional<Loan> findByIdWithDetails(@Param("id") Long id);

@@ -51,8 +51,6 @@ public class Loan {
     @Column(name = "status", nullable = false)
     private LoanStatus status;
 
-    // @BatchSize: thay vì load loanItems từng loan một (N query),
-    // Hibernate gom thành 1 query dạng WHERE loan_id IN (1, 2, 3, ...)
     @BatchSize(size = 30)
     @Builder.Default
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -4,8 +4,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.library.manager.model.request.CancelLoanRequest;
 import org.library.manager.model.request.CreateLoanRequest;
+import org.library.manager.model.request.ExtendLoanRequest;
 import org.library.manager.model.request.LoanFilterRequest;
-import org.library.manager.model.request.UpdateLoanRequest;
+import org.library.manager.model.request.ReturnLoanRequest;
 import org.library.manager.model.response.LoanResponse;
 import org.library.manager.service.LoanService;
 import org.springframework.data.domain.Page;
@@ -23,16 +24,9 @@ public class LoanController {
     @GetMapping
     public ResponseEntity<Page<LoanResponse>> getAll(
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(loanService.getAll(page, size));
-    }
-
-    @PostMapping("/filter")
-    public ResponseEntity<Page<LoanResponse>> filter(
-            @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestBody LoanFilterRequest request) {
-        return ResponseEntity.ok(loanService.filter(page, size, request));
+            @ModelAttribute LoanFilterRequest filter) {
+        return ResponseEntity.ok(loanService.getAll(page, size, filter));
     }
 
     @GetMapping("/{id}")
@@ -45,19 +39,26 @@ public class LoanController {
         return ResponseEntity.status(HttpStatus.CREATED).body(loanService.create(request));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<LoanResponse> update(
+    @PatchMapping("/{id}/return")
+    public ResponseEntity<LoanResponse> returnLoan(
             @PathVariable Long id,
-            @RequestBody @Valid UpdateLoanRequest request) {
-        return ResponseEntity.ok(loanService.update(id, request));
+            @RequestBody @Valid ReturnLoanRequest request) {
+        return ResponseEntity.ok(loanService.returnLoan(id, request));
+    }
+
+    @PatchMapping("/{id}/extend")
+    public ResponseEntity<LoanResponse> extendLoan(
+            @PathVariable Long id,
+            @RequestBody @Valid ExtendLoanRequest request) {
+        return ResponseEntity.ok(loanService.extendLoan(id, request));
     }
 
     @PatchMapping("/{id}/cancel")
-    public ResponseEntity<Void> cancel(
+    public ResponseEntity<LoanResponse> cancel(
             @PathVariable Long id,
             @RequestBody @Valid CancelLoanRequest request) {
         loanService.cancel(id, request);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(loanService.getById(id));
     }
 
     @DeleteMapping("/{id}")
