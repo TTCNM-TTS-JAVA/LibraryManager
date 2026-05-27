@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -216,12 +217,10 @@ public class LoanServiceImpl implements LoanService {
                 .collect(Collectors.toMap(Book::getId, Function.identity()));
 
         for (LoanItem item : loan.getLoanItems()) {
+            Book book = Optional.ofNullable(bookMap.get(item.getBookId()))
+                    .orElseThrow(() ->
+                            new CustomException(ErrorCode.BOOK_NOT_EXISTED));
 
-            Book book = bookMap.get(item.getBookId());
-
-            if (book == null) {
-                throw new CustomException(ErrorCode.BOOK_NOT_EXISTED);
-            }
             book.setTotalQuantity(
                     book.getTotalQuantity() + item.getQuantity()
             );

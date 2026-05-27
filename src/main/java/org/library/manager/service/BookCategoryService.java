@@ -19,7 +19,7 @@ public interface BookCategoryService {
 
     BookCategoryResponse deactivation(Long id, DeactivationReason reason);
 
-
+    void delete(Long BookCategoryId);
 
 
 

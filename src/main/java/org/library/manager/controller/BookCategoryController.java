@@ -47,10 +47,12 @@ public class BookCategoryController {
     public ResponseEntity<BookCategoryResponse> deactivation(@PathVariable Long id,
                                                              @Valid @RequestBody DeactivationReason reason){
         return ResponseEntity.ok(service.deactivation(id, reason));
-
-
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
