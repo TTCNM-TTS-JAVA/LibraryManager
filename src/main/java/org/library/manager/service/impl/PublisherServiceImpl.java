@@ -86,6 +86,14 @@ public class PublisherServiceImpl implements PublisherService {
         }
         return toResponse(publisherRepo.save(entity));
     }
+    @Override
+    public void delete(Long publisherId){
+        Publisher entity = findOrThrow(publisherId);
+        if(!entity.getBooks().isEmpty()){
+            throw new CustomException(ErrorCode.PUBLISHER_CANNOT_DELETE);
+        }
+        publisherRepo.delete(entity);
+    }
 
     private PublisherResponse toResponse(Publisher entity){
         return PublisherResponse.builder()

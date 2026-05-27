@@ -87,6 +87,17 @@ public class BookCategoryServiceImpl implements BookCategoryService {
         }
         return toResponse(bookCategoryRepo.save(entity));
     }
+    @Override
+    @Transactional
+    public void delete(Long bookCategoryId) {
+        BookCategory entity = findOrThrow(bookCategoryId);
+        if (!entity.getBooks().isEmpty()) {
+            throw new CustomException(ErrorCode.BOOK_CATEGORY_CANNOT_DELETE);
+        }
+
+        bookCategoryRepo.delete(entity);
+    }
+
     private BookCategory findOrThrow(Long id){
         return bookCategoryRepo.findById(id).orElseThrow(() -> new CustomException(ErrorCode. BOOK_CATEGORY_NOT_FOUND));
 

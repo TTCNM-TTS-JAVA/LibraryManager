@@ -21,7 +21,7 @@ public interface PublisherService {
 
     PublisherResponse deactivationReason(Long id, PublisherDeactivationRequest request);
 
-
+    void delete(Long PublisherId);
 
 
 }
