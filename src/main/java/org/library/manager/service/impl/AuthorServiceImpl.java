@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -123,9 +124,14 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional
     public void deleteAuthor(Long authorId) {
         Author author = authorRepository.findById(authorId)
                 .orElseThrow(()-> new CustomException(ErrorCode.AUTHOR_NOT_FOUND));
+
+        if (!author.getBooks().isEmpty()){
+            throw new CustomException(ErrorCode.CAN_NOT_DELETE);
+        }
         author.setStatus(Status.INACTIVE);
 
         authorRepository.save(author);

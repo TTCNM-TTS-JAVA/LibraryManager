@@ -13,6 +13,7 @@ public enum ErrorCode {
 
     TOTAL_QUANTITY_LESS_THAN_BORROWED(4002, "total.quantity.less.than.borrowed", HttpStatus.BAD_REQUEST),
 
+    CAN_NOT_DELETE(4003,"can.not.delete",HttpStatus.BAD_REQUEST),
     AUTHOR_NOT_FOUND(5001, "author.not.found", HttpStatus.INTERNAL_SERVER_ERROR),
     INVALID_RETURN_QUANTITY(40010, "book.return.exceeds.borrowed", HttpStatus.BAD_REQUEST),
     AUTHOR_NOT_ALREADY_EXIST(4001, "author.not.already.exists", HttpStatus.NOT_FOUND),

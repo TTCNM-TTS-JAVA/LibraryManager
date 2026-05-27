@@ -22,7 +22,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -35,8 +34,6 @@ public class BookServiceImpl implements BookService {
     private final AuthorRepository authorRepository;
     private final BookCategoryRepository categoryRepository;
     private final PublisherRepository publisherRepository;
-
-
 
     @Override
     @Transactional(readOnly = true)
@@ -95,7 +92,7 @@ public class BookServiceImpl implements BookService {
             search = bookDto.getSearch().trim();
         }
 
-        Page<Book> books = bookRepository.filterBook(
+        Page<Long> bookIds = bookRepository.filterBookIds(
                 search,
                 bookDto.getStatus(),
                 authorIdSet,
@@ -104,7 +101,9 @@ public class BookServiceImpl implements BookService {
                 pageable
         );
 
-        return books.stream().map(book ->
+        List<Book> bookList = bookRepository.findByIdIn(bookIds.toSet());
+
+        return bookList.stream().map(book ->
                 BookResponse.builder()
                         .id(book.getId())
                         .bookCode(book.getBookCode())
@@ -214,7 +213,6 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() ->
                         new CustomException(ErrorCode.PUBLISHER_NOT_ALREADY_EXIST));
 
-
         Book book = Book.builder()
                 .bookCode(request.getBookCode())
                 .bookTitle(request.getBookTitle())
@@ -308,7 +306,6 @@ public class BookServiceImpl implements BookService {
         Publisher publisher = publisherRepository.findById(request.getPublisherId())
                 .orElseThrow(() ->
                         new CustomException(ErrorCode.PUBLISHER_NOT_ALREADY_EXIST));
-
 
         book.setBookCode(request.getBookCode());
         book.setBookTitle(request.getBookTitle());
